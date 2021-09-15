@@ -7,6 +7,12 @@
     <OutputType>exe</OutputType>
     <ApplicationIcon>nadeko_icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <PropertyGroup>
+      <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+      <PublishSingleFile>true</PublishSingleFile>
+      <PublishTrimmed>true</PublishTrimmed>
+  </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.16.0" />
