@@ -10,10 +10,18 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build
-        run: dotnet publish -c Release
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release .
+          make package
 
-      - name: Upload publish folder
+      - name: Upload zip
         uses: actions/upload-artifact@v2
         with:
-          name: publish-linux
-          path: src/NadekoBot/bin/Release/net5.0/linux-x64/publish
+          name: publish-zip
+          path: NadekoBot.zip
+
+      - name: Upload deb
+        uses: actions/upload-artifact@v2
+        with:
+          name: publish-deb
+          path: NadekoBot.deb
