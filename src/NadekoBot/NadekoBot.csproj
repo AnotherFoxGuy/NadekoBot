@@ -17,8 +17,14 @@
         <!--    <AnalysisModeGlobalization>None</AnalysisModeGlobalization>-->
         <NoWarn>CS1066</NoWarn>
     </PropertyGroup>
+	
+    <PropertyGroup>
+      <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+      <PublishSingleFile>true</PublishSingleFile>
+    </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="System.Data.SQLite" Version="1.0.116" />
         <PackageReference Include="AngleSharp" Version="0.17.1">
             <PrivateAssets>all</PrivateAssets>
             <Publish>True</Publish>
