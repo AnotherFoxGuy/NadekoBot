@@ -1,6 +1,7 @@
 ﻿#nullable disable
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
+using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Modules.Gambling.Services;
 using NadekoBot.Modules.Patronage;
 using NadekoBot.Services.Currency;
@@ -8,7 +9,7 @@ using NadekoBot.Db.Models;
 
 namespace NadekoBot.Modules.Utility;
 
-public sealed class CurrencyRewardService : INService, IDisposable
+public sealed class CurrencyRewardService : INService, IReadyExecutor
 {
     private readonly ICurrencyService _cs;
     private readonly IPatronageService _ps;
@@ -32,16 +33,14 @@ public sealed class CurrencyRewardService : INService, IDisposable
         _config = config;
         _client = client;
 
+    }
+    
+    public Task OnReadyAsync()
+    {
         _ps.OnNewPatronPayment += OnNewPayment;
         _ps.OnPatronRefunded += OnPatronRefund;
         _ps.OnPatronUpdated += OnPatronUpdate;
-    }
-
-    public void Dispose()
-    {
-        _ps.OnNewPatronPayment -= OnNewPayment;
-        _ps.OnPatronRefunded -= OnPatronRefund;
-        _ps.OnPatronUpdated -= OnPatronUpdate;
+        return Task.CompletedTask;
     }
 
     private async Task OnPatronUpdate(Patron oldPatron, Patron newPatron)
