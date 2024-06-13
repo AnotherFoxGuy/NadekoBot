@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using NadekoBot.Modules.Searches.Common;
 using NadekoBot.Modules.Searches.Services;
+using NadekoBot.Modules.Utility;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SixLabors.ImageSharp;
@@ -168,7 +169,7 @@ public partial class Searches : NadekoModule<SearchesService>
                      .AddField("Rating", movie.ImdbRating, true)
                      .AddField("Genre", movie.Genre, true)
                      .AddField("Year", movie.Year, true)
-                     .WithImageUrl(movie.Poster))
+                     .WithImageUrl(Uri.IsWellFormedUriString(movie.Poster, UriKind.Absolute) ? movie.Poster : null))
               .SendAsync();
     }
 

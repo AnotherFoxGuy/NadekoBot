@@ -4,8 +4,9 @@ namespace NadekoBot;
 public interface IBotCredentials
 {
     string Token { get; }
-    string GoogleApiKey { get; }
+    string NadekoAiToken { get; }
     ICollection<ulong> OwnerIds { get; set; }
+    string GoogleApiKey { get; }
     bool UsePrivilegedIntents { get; }
     string RapidApiKey { get; }
 

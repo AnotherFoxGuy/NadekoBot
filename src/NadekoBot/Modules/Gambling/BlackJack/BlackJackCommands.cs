@@ -3,6 +3,7 @@ using NadekoBot.Common.TypeReaders;
 using NadekoBot.Modules.Gambling.Common;
 using NadekoBot.Modules.Gambling.Common.Blackjack;
 using NadekoBot.Modules.Gambling.Services;
+using NadekoBot.Modules.Utility;
 
 namespace NadekoBot.Modules.Gambling;
 

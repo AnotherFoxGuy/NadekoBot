@@ -9,7 +9,7 @@ namespace NadekoBot.Services;
 
 public class CommandHandler : INService, IReadyExecutor, ICommandHandler
 {
-    private const int GLOBAL_COMMANDS_COOLDOWN = 750;
+    private const int GLOBAL_COMMANDS_COOLDOWN = 200;
 
     private const float ONE_THOUSANDTH = 1.0f / 1000;
 
@@ -262,7 +262,7 @@ public class CommandHandler : INService, IReadyExecutor, ICommandHandler
         var blockTime = Environment.TickCount - startTime;
 
         var messageContent = await _behaviorHandler.RunInputTransformersAsync(guild, usrMsg);
-
+        
         var prefix = GetPrefix(guild?.Id);
         var isPrefixCommand = messageContent.StartsWith(".prefix", StringComparison.InvariantCultureIgnoreCase);
         // execute the command and measure the time it took

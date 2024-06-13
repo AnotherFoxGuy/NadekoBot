@@ -191,6 +191,12 @@ public sealed class BotCredsProvider : IBotCredsProvider
                 creds.Version = 7;
                 File.WriteAllText(CREDS_FILE_NAME, Yaml.Serializer.Serialize(creds));
             }
+
+            if (creds.Version <= 7)
+            {
+                creds.Version = 8;
+                File.WriteAllText(CREDS_FILE_NAME, Yaml.Serializer.Serialize(creds));
+            }
         }
     }
 

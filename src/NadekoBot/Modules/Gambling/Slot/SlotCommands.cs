@@ -9,6 +9,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using NadekoBot.Modules.Gambling;
 using NadekoBot.Common.TypeReaders;
+using NadekoBot.Modules.Utility;
 using Color = SixLabors.ImageSharp.Color;
 using Image = SixLabors.ImageSharp.Image;
 
