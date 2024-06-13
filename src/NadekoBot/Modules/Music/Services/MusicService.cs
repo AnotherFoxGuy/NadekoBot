@@ -212,7 +212,7 @@ public sealed class MusicService : IMusicService, IPlaceholderProvider
                 if (settings.AutoDisconnect)
                     return LeaveVoiceChannelAsync(guildId);
             }
-
+            
             return Task.CompletedTask;
         };
 

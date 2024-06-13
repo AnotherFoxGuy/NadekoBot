@@ -1718,41 +1718,6 @@ namespace NadekoBot.Migrations.Mysql
                     b.ToTable("expressions", (string)null);
                 });
 
-            modelBuilder.Entity("NadekoBot.Db.Models.PatronQuota", b =>
-                {
-                    b.Property<ulong>("UserId")
-                        .HasColumnType("bigint unsigned")
-                        .HasColumnName("userid");
-
-                    b.Property<int>("FeatureType")
-                        .HasColumnType("int")
-                        .HasColumnName("featuretype");
-
-                    b.Property<string>("Feature")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("feature");
-
-                    b.Property<uint>("DailyCount")
-                        .HasColumnType("int unsigned")
-                        .HasColumnName("dailycount");
-
-                    b.Property<uint>("HourlyCount")
-                        .HasColumnType("int unsigned")
-                        .HasColumnName("hourlycount");
-
-                    b.Property<uint>("MonthlyCount")
-                        .HasColumnType("int unsigned")
-                        .HasColumnName("monthlycount");
-
-                    b.HasKey("UserId", "FeatureType", "Feature")
-                        .HasName("pk_patronquotas");
-
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_patronquotas_userid");
-
-                    b.ToTable("patronquotas", (string)null);
-                });
-
             modelBuilder.Entity("NadekoBot.Db.Models.PatronUser", b =>
                 {
                     b.Property<ulong>("UserId")

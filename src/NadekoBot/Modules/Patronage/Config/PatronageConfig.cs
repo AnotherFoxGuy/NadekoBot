@@ -32,5 +32,14 @@ public class PatronageConfig : ConfigServiceBase<PatronConfigData>
                 c.IsEnabled = false;
             }
         });
+        
+        
+        ModifyConfig(c =>
+        {
+            if (c.Version == 2)
+            {
+                c.Version = 3;
+            }
+        });
     }
 }

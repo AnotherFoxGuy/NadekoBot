@@ -18,4 +18,5 @@ public sealed class NadekoButtonInteractionHandler : NadekoInteractionBase
 
     public override void AddTo(ComponentBuilder cb)
         => cb.WithButton(Button);
+
 }
