@@ -254,7 +254,7 @@ public sealed class ReactionRolesService : IReadyExecutor, INService, IReactionR
         var activeReactionRoles = await ctx.GetTable<ReactionRoleV2>()
                                            .Where(x => x.GuildId == guild.Id)
                                            .CountAsync();
-
+        
         var limit = await _ps.GetUserLimit(LimitedFeatureName.ReactionRole, guild.OwnerId);
         
         if (!_creds.IsOwner(guild.OwnerId) && (activeReactionRoles >= limit.Quota && limit.Quota >= 0))

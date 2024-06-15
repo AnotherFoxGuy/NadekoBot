@@ -247,7 +247,7 @@ public sealed class PatronageService
     {
         if (_creds.GetCreds().IsOwner(userId))
             return true;
-        
+
         if (!_pConf.Data.IsEnabled)
             return true;
 
@@ -266,7 +266,7 @@ public sealed class PatronageService
     {
         if (_creds.GetCreds().IsOwner(userId))
             return true;
-        
+
         if (!_pConf.Data.IsEnabled)
             return true;
 
@@ -316,14 +316,23 @@ public sealed class PatronageService
     private TypedKey<int> CreateKey(LimitedFeatureName key, ulong userId)
         => new($"limited_feature:{key}:{userId}");
 
-    private QuotaLimit _emptyQuota = new QuotaLimit()
+    private readonly QuotaLimit _emptyQuota = new QuotaLimit()
     {
         Quota = 0,
         QuotaPeriod = QuotaPer.PerDay,
     };
 
+    private readonly QuotaLimit _infiniteQuota = new QuotaLimit()
+    {
+        Quota = -1,
+        QuotaPeriod = QuotaPer.PerDay,
+    };
+
     public async Task<QuotaLimit> GetUserLimit(LimitedFeatureName name, ulong userId)
     {
+        if (!_pConf.Data.IsEnabled)
+            return _infiniteQuota;
+        
         var maybePatron = await GetPatronAsync(userId);
 
         if (maybePatron is not { } patron)
