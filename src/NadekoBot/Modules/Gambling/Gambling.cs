@@ -197,16 +197,15 @@ public partial class Gambling : GamblingModule<GamblingService>
             await Response().Pending(strs.timely_already_claimed(relativeTag)).Interaction(interaction).SendAsync();
             return;
         }
-
-        var inter = CreateRemindMeInteraction(period);
-
-        var result = await _ps.TryGetFeatureLimitAsync(_timelyKey, ctx.User.Id, 0);
+        
 
         var patron = await _ps.GetPatronAsync(ctx.User.Id);
 
         var percentBonus = (_ps.PercentBonus(patron) / 100f);
 
         val += (int)(val * percentBonus);
+
+        var inter = CreateRemindMeInteraction(period);
 
         await _cs.AddAsync(ctx.User.Id, val, new("timely", "claim"));
 
