@@ -8,8 +8,9 @@ public sealed class NadekoButtonInteractionHandler : NadekoInteractionBase
         ButtonBuilder button,
         Func<SocketMessageComponent, Task> onAction,
         bool onlyAuthor,
-        bool singleUse = true)
-        : base(client, authorId, button.CustomId, onAction, onlyAuthor, singleUse)
+        bool singleUse = true,
+        bool clearAfter = true)
+        : base(client, authorId, button.CustomId, onAction, onlyAuthor, singleUse, clearAfter)
     {
         Button = button;
     }

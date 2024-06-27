@@ -13,25 +13,30 @@ public class NadekoInteractionService : INadekoInteractionService, INService
         ulong userId,
         ButtonBuilder button,
         Func<SocketMessageComponent, Task> onTrigger,
-        bool singleUse = true)
+        bool singleUse = true,
+        bool clearAfter = true)
         => new NadekoButtonInteractionHandler(_client,
             userId,
             button,
             onTrigger,
             onlyAuthor: true,
-            singleUse: singleUse);
+            singleUse: singleUse,
+            clearAfter: clearAfter);
 
     public NadekoInteractionBase Create<T>(
         ulong userId,
         ButtonBuilder button,
         Func<SocketMessageComponent, T, Task> onTrigger,
         in T state,
-        bool singleUse = true)
+        bool singleUse = true,
+        bool clearAfter = true
+    )
         => Create(userId,
             button,
             ((Func<T, Func<SocketMessageComponent, Task>>)((data)
                 => smc => onTrigger(smc, data)))(state),
-            singleUse);
+            singleUse,
+            clearAfter);
 
     public NadekoInteractionBase Create(
         ulong userId,
