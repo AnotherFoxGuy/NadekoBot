@@ -1388,6 +1388,25 @@ namespace NadekoBot.Migrations.Mysql
                     b.ToTable("guildconfigs", (string)null);
                 });
 
+            modelBuilder.Entity("NadekoBot.Db.Models.HoneypotChannel", b =>
+                {
+                    b.Property<ulong>("GuildId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("guildid");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("GuildId"));
+
+                    b.Property<ulong>("ChannelId")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("channelid");
+
+                    b.HasKey("GuildId")
+                        .HasName("pk_honeypotchannels");
+
+                    b.ToTable("honeypotchannels", (string)null);
+                });
+
             modelBuilder.Entity("NadekoBot.Db.Models.IgnoredLogItem", b =>
                 {
                     b.Property<int>("Id")
