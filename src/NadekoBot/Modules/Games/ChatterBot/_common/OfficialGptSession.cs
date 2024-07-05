@@ -47,7 +47,7 @@ public partial class OfficialGptSession : IChatterBotSession
         _maxHistory = chatHistory;
         _maxTokens = maxTokens;
         _minTokens = minTokens;
-        _nadekoUsername = nadekoUsername;
+        _nadekoUsername = UsernameCleaner().Replace(nadekoUsername, "");
         _encoding = GptEncoding.GetEncodingForModel(_model);
         messages.Add(new()
         {
