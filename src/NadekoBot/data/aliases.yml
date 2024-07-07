@@ -1405,3 +1405,7 @@ prompt:
   - prompt
 honeypot:
   - honeypot
+coins:
+  - coins
+  - crypto
+  - cryptos
