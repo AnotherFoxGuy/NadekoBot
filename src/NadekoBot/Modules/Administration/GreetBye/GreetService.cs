@@ -242,7 +242,7 @@ public class GreetService : INService, IReadyExecutor
             guild: channel.Guild,
             channel: channel,
             users: users.ToArray());
-        
+
         var text = SmartText.CreateFrom(conf.ChannelGreetMessageText);
         text = await _repSvc.ReplaceAsync(text, repCtx);
         try
@@ -628,6 +628,13 @@ public class GreetService : INService, IReadyExecutor
         using var uow = _db.GetDbContext();
         var conf = uow.GuildConfigsForId(guildId, set => set);
         return conf.SendChannelByeMessage;
+    }
+
+    public bool GetBoostEnabled(ulong guildId)
+    {
+        using var uow = _db.GetDbContext();
+        var conf = uow.GuildConfigsForId(guildId, set => set);
+        return conf.SendBoostMessage;
     }
 
     #endregion
