@@ -12,6 +12,8 @@ Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except da
 - You can now send multiple waifu gifts at once to waifus. For example `.waifugift 3xRose @user` will give that user 3 roses
   - The format is `<NUMBER>x<ITEM>`, no spaces
 - Added `.boosttest` command
+- Added support for any openai compatible api for the chatterbot feature change: 
+  - Changed games.yml to allow input of the apiUrl (needs to be openai compatible) and modelName as a string.
 
 ### Changed
 
