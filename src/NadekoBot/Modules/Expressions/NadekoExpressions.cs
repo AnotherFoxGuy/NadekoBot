@@ -402,11 +402,10 @@ public partial class NadekoExpressions : NadekoModule<NadekoExpressionsService>
     }
 
     [Cmd]
-#if GLOBAL_NADEKO
-    [OwnerOnly]
-#endif
     public async Task ExprsImport([Leftover] string input = null)
     {
+        // todo cooldown on public bot for 1 day, limit 100
+        
         if (!AdminInGuildOrOwnerInDm())
         {
             await Response().Error(strs.expr_insuff_perms).SendAsync();
