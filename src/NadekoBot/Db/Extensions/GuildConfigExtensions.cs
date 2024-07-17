@@ -182,15 +182,6 @@ public static class GuildConfigExtensions
             .SelectMany(gc => gc.FollowedStreams)
             .ToList();
 
-    public static void SetCleverbotEnabled(this DbSet<GuildConfig> configs, ulong id, bool cleverbotEnabled)
-    {
-        var conf = configs.FirstOrDefault(gc => gc.GuildId == id);
-
-        if (conf is null)
-            return;
-
-        conf.CleverbotEnabled = cleverbotEnabled;
-    }
 
     public static XpSettings XpSettingsFor(this DbContext ctx, ulong guildId)
     {
