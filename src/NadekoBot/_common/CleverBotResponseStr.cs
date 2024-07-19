@@ -6,5 +6,5 @@ namespace NadekoBot.Modules.Permissions;
 [StructLayout(LayoutKind.Sequential, Size = 1)]
 public readonly struct CleverBotResponseStr
 {
-    public const string CLEVERBOT_RESPONSE = "cleverbot:response";
+    public const string CLEVERBOT_RESPONSE = "CLEVERBOT:RESPONSE";
 }
