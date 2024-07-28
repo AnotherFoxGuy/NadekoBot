@@ -1417,3 +1417,5 @@ coins:
   - cryptos
 afk:
   - afk
+keep:
+  - keep
