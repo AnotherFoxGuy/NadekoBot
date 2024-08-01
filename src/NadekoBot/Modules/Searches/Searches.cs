@@ -3,13 +3,11 @@ using Microsoft.Extensions.Caching.Memory;
 using NadekoBot.Modules.Searches.Common;
 using NadekoBot.Modules.Searches.Services;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System.Diagnostics.CodeAnalysis;
-using System.Net;
 using Color = SixLabors.ImageSharp.Color;
 
 namespace NadekoBot.Modules.Searches;
@@ -478,16 +476,6 @@ public partial class Searches : NadekoModule<SearchesService>
             return;
         }
 
-        //var embed = _sender.CreateEmbed()
-        //    .WithOkColor()
-        //    .WithDescription(gameData.ShortDescription)
-        //    .WithTitle(gameData.Name)
-        //    .WithUrl(gameData.Link)
-        //    .WithImageUrl(gameData.HeaderImage)
-        //    .AddField(GetText(strs.genres), gameData.TotalEpisodes.ToString(), true)
-        //    .AddField(GetText(strs.price), gameData.IsFree ? GetText(strs.FREE) : game, true)
-        //    .AddField(GetText(strs.links), gameData.GetGenresString(), true)
-        //    .WithFooter(GetText(strs.recommendations(gameData.TotalRecommendations)));
         await Response().Text($"https://store.steampowered.com/app/{appId}").SendAsync();
     }
 

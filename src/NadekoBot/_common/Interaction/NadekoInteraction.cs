@@ -70,6 +70,7 @@ public abstract class NadekoInteractionBase
             {
                 if (_singleUse)
                     _interactionCompletedSource.TrySetResult(true);
+                
                 await ExecuteOnActionAsync(smc);
 
                 if (!smc.HasResponded)
