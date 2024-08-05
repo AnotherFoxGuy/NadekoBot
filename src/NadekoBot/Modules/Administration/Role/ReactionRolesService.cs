@@ -2,7 +2,6 @@
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
-using NadekoBot.Db;
 using NadekoBot.Modules.Patronage;
 using NadekoBot.Db.Models;
 using OneOf.Types;

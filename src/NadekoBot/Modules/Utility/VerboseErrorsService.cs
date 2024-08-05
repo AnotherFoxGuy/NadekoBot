@@ -1,6 +1,4 @@
 ﻿#nullable disable
-using NadekoBot.Db;
-
 namespace NadekoBot.Modules.Utility.Services;
 
 public class VerboseErrorsService : INService

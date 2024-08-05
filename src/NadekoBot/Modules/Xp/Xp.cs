@@ -2,7 +2,6 @@
 using NadekoBot.Modules.Xp.Services;
 using NadekoBot.Db.Models;
 using NadekoBot.Modules.Patronage;
-using NadekoBot.Modules.Utility;
 
 namespace NadekoBot.Modules.Xp;
 

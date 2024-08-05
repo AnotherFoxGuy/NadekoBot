@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using NadekoBot.Db;
 using NadekoBot.Db.Models;
 using NadekoBot.Modules.Gambling.Services;
 using NCalc;

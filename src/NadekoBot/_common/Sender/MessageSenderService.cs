@@ -1,5 +1,4 @@
 using NadekoBot.Common.Configs;
-using System.Diagnostics.CodeAnalysis;
 
 namespace NadekoBot.Extensions;
 

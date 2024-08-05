@@ -1,4 +1,3 @@
-using LinqToDB.Reflection;
 using NadekoBot.Modules.Utility.Services;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -7,7 +6,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
-using NadekoBot.Modules.Games.Hangman;
 using NadekoBot.Modules.Searches.Common;
 
 namespace NadekoBot.Modules.Utility;

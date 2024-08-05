@@ -1,7 +1,6 @@
 #nullable disable
 using Microsoft.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
-using NadekoBot.Db;
 using NadekoBot.Db.Models;
 using NadekoBot.Modules.Searches.Common;
 using NadekoBot.Modules.Searches.Common.StreamNotifications;

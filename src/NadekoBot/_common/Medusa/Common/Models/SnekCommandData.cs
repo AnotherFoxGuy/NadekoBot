@@ -1,5 +1,4 @@
-﻿using NadekoBot.Medusa;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace NadekoBot.Medusa;
 

@@ -2,7 +2,6 @@
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.Yml;
-using NadekoBot.Db;
 using NadekoBot.Db.Models;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;

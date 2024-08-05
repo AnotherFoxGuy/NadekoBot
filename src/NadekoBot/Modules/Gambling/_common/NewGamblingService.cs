@@ -1,5 +1,4 @@
 ﻿#nullable disable
-using NadekoBot.Modules.Gambling;
 using NadekoBot.Modules.Gambling.Betdraw;
 using NadekoBot.Modules.Gambling.Rps;
 using NadekoBot.Modules.Gambling.Services;

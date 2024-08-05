@@ -1,7 +1,6 @@
 #nullable disable
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
-using NadekoBot.Db;
 using NadekoBot.Db.Models;
 using NadekoBot.Services.Currency;
 

@@ -1,7 +1,4 @@
-﻿using NadekoBot.Db.Models;
-using OneOf;
-
-namespace NadekoBot.Modules.Patronage;
+﻿namespace NadekoBot.Modules.Patronage;
 
 /// <summary>
 /// Manages patrons and provides access to their data  

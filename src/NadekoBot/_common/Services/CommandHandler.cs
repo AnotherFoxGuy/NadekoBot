@@ -1,7 +1,6 @@
 #nullable disable
 using NadekoBot.Common.Configs;
 using NadekoBot.Common.ModuleBehaviors;
-using NadekoBot.Db;
 using ExecuteResult = Discord.Commands.ExecuteResult;
 using PreconditionResult = Discord.Commands.PreconditionResult;
 

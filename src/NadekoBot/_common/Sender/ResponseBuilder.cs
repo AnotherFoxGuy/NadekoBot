@@ -1,6 +1,4 @@
-﻿using NadekoBot.Common.Configs;
-using NadekoBot.Db.Models;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace NadekoBot.Extensions;
 

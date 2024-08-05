@@ -1,6 +1,4 @@
-﻿using NadekoBot.Db.Models;
-
-namespace NadekoBot.Modules.Patronage;
+﻿namespace NadekoBot.Modules.Patronage;
 
 /// <summary>
 /// Represents information about why the user has triggered a quota limit

@@ -1,6 +1,5 @@
 ﻿#nullable disable
 using LinqToDB;
-using NadekoBot.Db;
 using NadekoBot.Modules.Music.Services;
 using NadekoBot.Db.Models;
 

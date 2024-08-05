@@ -2,7 +2,6 @@
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using NadekoBot.Db;
 using NadekoBot.Db.Models;
 using OneOf;
 

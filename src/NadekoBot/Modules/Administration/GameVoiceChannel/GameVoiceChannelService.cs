@@ -1,6 +1,4 @@
 #nullable disable
-using NadekoBot.Db;
-
 namespace NadekoBot.Modules.Administration.Services;
 
 public class GameVoiceChannelService : INService

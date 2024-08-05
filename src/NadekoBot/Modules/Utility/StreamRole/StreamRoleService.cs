@@ -1,5 +1,4 @@
 ﻿using NadekoBot.Common.ModuleBehaviors;
-using NadekoBot.Db;
 using NadekoBot.Modules.Utility.Common;
 using NadekoBot.Modules.Utility.Common.Exceptions;
 using NadekoBot.Db.Models;

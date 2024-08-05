@@ -1,5 +1,4 @@
-﻿using NadekoBot.Modules.Searches.Common;
-using OneOf;
+﻿using OneOf;
 using OneOf.Types;
 using System.Net;
 using System.Net.Http.Json;

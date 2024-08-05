@@ -1,7 +1,6 @@
 ﻿#nullable disable
 using Microsoft.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
-using NadekoBot.Db;
 using NadekoBot.Db.Models;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;

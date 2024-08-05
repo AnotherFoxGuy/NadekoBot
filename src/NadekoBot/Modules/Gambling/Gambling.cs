@@ -13,7 +13,6 @@ using System.Text;
 using NadekoBot.Modules.Gambling.Rps;
 using NadekoBot.Common.TypeReaders;
 using NadekoBot.Modules.Patronage;
-using NadekoBot.Modules.Utility;
 
 namespace NadekoBot.Modules.Gambling;
 

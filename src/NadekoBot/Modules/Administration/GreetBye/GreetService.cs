@@ -1,5 +1,4 @@
 using NadekoBot.Common.ModuleBehaviors;
-using NadekoBot.Db;
 using NadekoBot.Db.Models;
 using System.Threading.Channels;
 

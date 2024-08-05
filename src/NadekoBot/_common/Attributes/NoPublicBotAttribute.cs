@@ -1,6 +1,4 @@
 ﻿#nullable disable
-using System.Diagnostics.CodeAnalysis;
-
 namespace NadekoBot.Common;
 
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]

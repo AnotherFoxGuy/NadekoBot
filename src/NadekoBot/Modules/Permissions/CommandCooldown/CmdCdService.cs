@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
-using NadekoBot.Db;
 
 namespace NadekoBot.Modules.Permissions.Services;
 

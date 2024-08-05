@@ -1,6 +1,4 @@
-﻿using NadekoBot.Modules.Administration;
-
-namespace NadekoBot.Modules.Utility;
+﻿namespace NadekoBot.Modules.Utility;
 
 public partial class UtilityCommands
 {

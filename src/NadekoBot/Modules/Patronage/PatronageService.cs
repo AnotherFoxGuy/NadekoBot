@@ -2,8 +2,6 @@
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
-using StackExchange.Redis;
-using System.Diagnostics;
 
 namespace NadekoBot.Modules.Patronage;
 

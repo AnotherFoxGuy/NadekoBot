@@ -1,6 +1,4 @@
 ﻿#nullable disable
-using System.CodeDom;
-
 namespace NadekoBot.Modules.Games.Common.ChatterBot;
 
 public sealed class ThinkResult

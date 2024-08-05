@@ -1,5 +1,4 @@
 #nullable disable
-using NadekoBot.Db;
 using Newtonsoft.Json;
 using System.Globalization;
 
