@@ -8,7 +8,6 @@ COPY src/NadekoBot/*.csproj src/NadekoBot/
 COPY src/NadekoBot.Coordinator/*.csproj src/NadekoBot.Coordinator/
 COPY src/NadekoBot.Generators/*.csproj src/NadekoBot.Generators/
 COPY src/NadekoBot.Voice/*.csproj src/NadekoBot.Voice/
-COPY NuGet.Config ./
 
 # Restore the dependencies for the NadekoBot project
 RUN dotnet restore src/NadekoBot/
