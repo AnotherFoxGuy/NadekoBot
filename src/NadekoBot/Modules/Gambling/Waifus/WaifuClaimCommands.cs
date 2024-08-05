@@ -3,6 +3,7 @@ using NadekoBot.Modules.Gambling.Common;
 using NadekoBot.Modules.Gambling.Common.Waifu;
 using NadekoBot.Modules.Gambling.Services;
 using NadekoBot.Db.Models;
+using System.Globalization;
 
 namespace NadekoBot.Modules.Gambling;
 
@@ -152,12 +153,12 @@ public partial class Gambling
                 await Response().Confirm(strs.waifu_divorced_notlike(N(amount))).SendAsync();
             else if (result == DivorceResult.NotYourWife)
                 await Response().Error(strs.waifu_not_yours).SendAsync();
-            else
+            else if (remaining is { } rem)
             {
                 await Response()
                       .Error(strs.waifu_recent_divorce(
-                          Format.Bold(((int)remaining?.TotalHours).ToString()),
-                          Format.Bold(remaining?.Minutes.ToString())))
+                          Format.Bold(((int)rem.TotalHours).ToString()),
+                          Format.Bold(rem.Minutes.ToString())))
                       .SendAsync();
             }
         }
@@ -237,7 +238,7 @@ public partial class Gambling
         private string GetLbString(WaifuLbResult w)
         {
             var claimer = "no one";
-            var status = string.Empty;
+            string status;
 
             var waifuUsername = w.Username.TrimTo(20);
             var claimerUsername = w.Claimer?.TrimTo(20);
@@ -376,14 +377,15 @@ public partial class Gambling
             if (sucess)
             {
                 await Response()
-                      .Confirm(strs.waifu_gift(Format.Bold($"{GetCountString(items)}{items.Item} {items.Item.ItemEmoji}"),
+                      .Confirm(strs.waifu_gift(
+                          Format.Bold($"{GetCountString(items)}{items.Item} {items.Item.ItemEmoji}"),
                           Format.Bold(waifu.ToString())))
                       .SendAsync();
             }
             else
                 await Response().Error(strs.not_enough(CurrencySign)).SendAsync();
         }
-        
+
         private static string GetCountString(MultipleWaifuItems items)
             => items.Count > 1
                 ? $"{items.Count}x "
