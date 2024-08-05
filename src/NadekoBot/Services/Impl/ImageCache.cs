@@ -60,12 +60,6 @@ public sealed class ImageCache : IImageCache, INService
     public Task<byte[]?> GetXpBackgroundImageAsync()
         => GetImageDataAsync(_ic.Data.Xp.Bg);
 
-    public Task<byte[]?> GetRategirlBgAsync()
-        => GetImageDataAsync(_ic.Data.Rategirl.Matrix);
-
-    public Task<byte[]?> GetRategirlDotAsync()
-        => GetImageDataAsync(_ic.Data.Rategirl.Dot);
-
     public Task<byte[]?> GetDiceAsync(int num)
         => GetImageDataAsync(_ic.Data.Dice[num]);
 
