@@ -88,7 +88,7 @@ public sealed class Bot : IBot
 
 
     public IReadOnlyList<ulong> GetCurrentGuildIds()
-        => Client.Guilds.Select(x => x.Id).ToList();
+        => Client.Guilds.Select(x => x.Id).ToList().ToList();
 
     private void AddServices()
     {
