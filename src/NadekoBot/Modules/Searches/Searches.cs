@@ -1,4 +1,3 @@
-#nullable disable
 using Microsoft.Extensions.Caching.Memory;
 using NadekoBot.Modules.Searches.Common;
 using NadekoBot.Modules.Searches.Services;
@@ -114,7 +113,7 @@ public partial class Searches : NadekoModule<SearchesService>
     }
 
     [Cmd]
-    public async Task Movie([Leftover] string query = null)
+    public async Task Movie([Leftover] string query)
     {
         if (!await ValidateQuery(query))
             return;
@@ -166,7 +165,7 @@ public partial class Searches : NadekoModule<SearchesService>
     }
 
     [Cmd]
-    public async Task Lmgtfy([Leftover] string smh = null)
+    public async Task Lmgtfy([Leftover] string smh)
     {
         if (!await ValidateQuery(smh))
             return;
@@ -256,45 +255,38 @@ public partial class Searches : NadekoModule<SearchesService>
     }
 
     [Cmd]
-    public async Task UrbanDict([Leftover] string query = null)
+    public async Task UrbanDict([Leftover] string query)
     {
         if (!await ValidateQuery(query))
             return;
 
         await ctx.Channel.TriggerTypingAsync();
-        using (var http = _httpFactory.CreateClient())
+        using var http = _httpFactory.CreateClient();
+        var res = await http.GetStringAsync($"https://api.urbandictionary.com/v0/define?"
+                                            + $"term={Uri.EscapeDataString(query)}");
+        var allItems = JsonConvert.DeserializeObject<UrbanResponse>(res)?.List;
+
+        if (allItems is null or { Length: 0 })
         {
-            var res = await http.GetStringAsync(
-                $"https://api.urbandictionary.com/v0/define?term={Uri.EscapeDataString(query)}");
-            try
-            {
-                var allItems = JsonConvert.DeserializeObject<UrbanResponse>(res).List;
-                if (allItems.Any())
-                {
-                    await Response()
-                          .Paginated()
-                          .Items(allItems)
-                          .PageSize(1)
-                          .CurrentPage(0)
-                          .Page((items, _) =>
-                          {
-                              var item = items[0];
-                              return _sender.CreateEmbed()
-                                            .WithOkColor()
-                                            .WithUrl(item.Permalink)
-                                            .WithTitle(item.Word)
-                                            .WithDescription(item.Definition);
-                          })
-                          .SendAsync();
-                    return;
-                }
-            }
-            catch
-            {
-            }
+            await Response().Error(strs.ud_error).SendAsync();
+            return;
         }
 
-        await Response().Error(strs.ud_error).SendAsync();
+        await Response()
+              .Paginated()
+              .Items(allItems)
+              .PageSize(1)
+              .CurrentPage(0)
+              .Page((items, _) =>
+              {
+                  var item = items[0];
+                  return _sender.CreateEmbed()
+                                .WithOkColor()
+                                .WithUrl(item.Permalink)
+                                .WithTitle(item.Word)
+                                .WithDescription(item.Definition);
+              })
+              .SendAsync();
     }
 
     [Cmd]
@@ -351,7 +343,7 @@ public partial class Searches : NadekoModule<SearchesService>
     [Cmd]
     public async Task Wiki([Leftover] string query)
     {
-        query = query?.Trim();
+        query = query.Trim();
 
         if (!await ValidateQuery(query))
             return;
@@ -393,16 +385,17 @@ public partial class Searches : NadekoModule<SearchesService>
         for (var i = 0; i < colorObjects.Length; i++)
         {
             var x = i * 50;
-            img.Mutate(m => m.FillPolygon(colorObjects[i], new(x, 0), new(x + 50, 0), new(x + 50, 50), new(x, 50)));
+            var j = i;
+            img.Mutate(m => m.FillPolygon(colorObjects[j], new(x, 0), new(x + 50, 0), new(x + 50, 50), new(x, 50)));
         }
 
-        await using var ms = img.ToStream();
+        await using var ms = await img.ToStreamAsync();
         await ctx.Channel.SendFileAsync(ms, "colors.png");
     }
 
     [Cmd]
     [RequireContext(ContextType.Guild)]
-    public async Task Avatar([Leftover] IGuildUser usr = null)
+    public async Task Avatar([Leftover] IGuildUser? usr = null)
     {
         usr ??= (IGuildUser)ctx.User;
 
