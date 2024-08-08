@@ -1,8 +1,9 @@
 ﻿namespace NadekoBot.Modules.Utility;
 
-public partial class UtilityCommands
+public partial class Utility
 {
-    public class PromptCommands : NadekoModule<IAiAssistantService>
+    [Group]
+    public partial class PromptCommands : NadekoModule<IAiAssistantService>
     {
         [Cmd]
         [RequireContext(ContextType.Guild)]

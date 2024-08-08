@@ -1,9 +1,11 @@
-﻿namespace NadekoBot.Modules.Administration.DangerousCommands;
+﻿using NadekoBot.Modules.Administration.DangerousCommands;
+
+namespace NadekoBot.Modules.Administration;
 
 public partial class Administration 
 {
     [Group]
-    public class CleanupCommands : CleanupModuleBase
+    public partial class CleanupCommands : CleanupModuleBase
     {
         private readonly ICleanupService _svc;
 
