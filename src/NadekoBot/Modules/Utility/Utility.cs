@@ -223,16 +223,6 @@ public partial class Utility : NadekoModule
         await Response().Confirm(builder.ToString()).SendAsync();
     }
 
-    // [Cmd]
-    // [RequireContext(ContextType.Guild)]
-    // [RequireUserPermission(GuildPermission.ManageRoles)]
-    // public async Task CheckPerms(SocketRole role, string perm = null)
-    // {
-    //     ChannelPermissions.
-    //     var perms = ((ITextChannel)ctx.Channel);
-    //     await SendPerms(perms)
-    // }
-
     [Cmd]
     [RequireContext(ContextType.Guild)]
     public async Task UserId([Leftover] IGuildUser? target = null)
@@ -337,31 +327,33 @@ public partial class Utility : NadekoModule
         if (string.IsNullOrWhiteSpace(ownerIds))
             ownerIds = "-";
 
+        var eb = _sender.CreateEmbed()
+                        .WithOkColor()
+                        .WithAuthor($"NadekoBot v{StatsService.BotVersion}",
+                            "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/avatar.png",
+                            "https://nadekobot.readthedocs.io/en/latest/")
+                        .AddField(GetText(strs.author), _stats.Author, true)
+                        .AddField(GetText(strs.botid), _client.CurrentUser.Id.ToString(), true)
+                        .AddField(GetText(strs.shard),
+                            $"#{_client.ShardId} / {_creds.TotalShards}",
+                            true)
+                        .AddField(GetText(strs.commands_ran), _stats.CommandsRan.ToString(), true)
+                        .AddField(GetText(strs.messages),
+                            $"{_stats.MessageCounter} ({_stats.MessagesPerSecond:F2}/sec)",
+                            true)
+                        .AddField(GetText(strs.memory),
+                            FormattableString.Invariant($"{_stats.GetPrivateMemoryMegabytes():F2} MB"),
+                            true)
+                        .AddField(GetText(strs.owner_ids), ownerIds, true)
+                        .AddField(GetText(strs.uptime), _stats.GetUptimeString("\n"), true)
+                        .AddField(GetText(strs.presence),
+                            GetText(strs.presence_txt(_coord.GetGuildCount(),
+                                _stats.TextChannels,
+                                _stats.VoiceChannels)),
+                            true);
+
         await Response()
-              .Embed(_sender.CreateEmbed()
-                            .WithOkColor()
-                            .WithAuthor($"NadekoBot v{StatsService.BotVersion}",
-                                "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/avatar.png",
-                                "https://nadekobot.readthedocs.io/en/latest/")
-                            .AddField(GetText(strs.author), _stats.Author, true)
-                            .AddField(GetText(strs.botid), _client.CurrentUser.Id.ToString(), true)
-                            .AddField(GetText(strs.shard),
-                                $"#{_client.ShardId} / {_creds.TotalShards}",
-                                true)
-                            .AddField(GetText(strs.commands_ran), _stats.CommandsRan.ToString(), true)
-                            .AddField(GetText(strs.messages),
-                                $"{_stats.MessageCounter} ({_stats.MessagesPerSecond:F2}/sec)",
-                                true)
-                            .AddField(GetText(strs.memory),
-                                FormattableString.Invariant($"{_stats.GetPrivateMemoryMegabytes():F2} MB"),
-                                true)
-                            .AddField(GetText(strs.owner_ids), ownerIds, true)
-                            .AddField(GetText(strs.uptime), _stats.GetUptimeString("\n"), true)
-                            .AddField(GetText(strs.presence),
-                                GetText(strs.presence_txt(_coord.GetGuildCount(),
-                                    _stats.TextChannels,
-                                    _stats.VoiceChannels)),
-                                true))
+              .Embed(eb)
               .SendAsync();
     }
 
