@@ -4556,3 +4556,10 @@ keep:
     - ''
   params:
     - { }
+leaveunkeptservers:
+  desc: |-
+    Leaves all servers whose owners didn't run .keep
+  ex:
+    - ''
+  params:
+    - { }
