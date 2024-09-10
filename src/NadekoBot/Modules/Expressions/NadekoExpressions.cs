@@ -402,6 +402,7 @@ public partial class NadekoExpressions : NadekoModule<NadekoExpressionsService>
     }
 
     [Cmd]
+    [Ratelimit(300)]
     public async Task ExprsImport([Leftover] string input = null)
     {
         // todo cooldown on public bot for 1 day, limit 100

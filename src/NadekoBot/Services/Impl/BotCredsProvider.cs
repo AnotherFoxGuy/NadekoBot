@@ -49,18 +49,19 @@ public sealed class BotCredsProvider : IBotCredsProvider
             // this can fail in docker containers
         }
 
-        MigrateCredentials();
-
-        if (!File.Exists(CredsPath))
-        {
-            Log.Warning(
-                "{CredsPath} is missing. Attempting to load creds from environment variables prefixed with 'NadekoBot_'. Example is in {CredsExamplePath}",
-                CredsPath,
-                CredsExamplePath);
-        }
 
         try
         {
+            MigrateCredentials();
+
+            if (!File.Exists(CredsPath))
+            {
+                Log.Warning(
+                    "{CredsPath} is missing. Attempting to load creds from environment variables prefixed with 'NadekoBot_'. Example is in {CredsExamplePath}",
+                    CredsPath,
+                    CredsExamplePath);
+            }
+
             _config = new ConfigurationBuilder().AddYamlFile(CredsPath, false, true)
                                                 .AddEnvironmentVariables("NadekoBot_")
                                                 .Build();
@@ -141,6 +142,7 @@ public sealed class BotCredsProvider : IBotCredsProvider
             {
                 creds.BotCache = BotCacheImplemenation.Redis;
             }
+
             if (creds.Version <= 6)
             {
                 creds.Version = 7;
