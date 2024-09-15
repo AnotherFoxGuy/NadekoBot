@@ -9,12 +9,6 @@ namespace NadekoBot.Migrations.PostgreSql
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<decimal>(
-                name: "rolerequirement",
-                table: "shopentry",
-                type: "numeric(20,0)",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "autopublishchannel",
                 columns: table => new
@@ -41,10 +35,6 @@ namespace NadekoBot.Migrations.PostgreSql
         {
             migrationBuilder.DropTable(
                 name: "autopublishchannel");
-
-            migrationBuilder.DropColumn(
-                name: "rolerequirement",
-                table: "shopentry");
         }
     }
 }
