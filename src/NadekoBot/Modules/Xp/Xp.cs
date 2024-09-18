@@ -445,9 +445,10 @@ public partial class Xp : NadekoModule<XpService>
                   if (!string.IsNullOrWhiteSpace(item.Desc))
                       eb.AddField(GetText(strs.desc), item.Desc);
 
+#if GLOBAL_NADEKO
                   if (key == "default")
                       eb.WithDescription(GetText(strs.xpshop_website));
-
+#endif
 
                   var tier = _service.GetXpShopTierRequirement(type);
                   if (tier != PatronTier.None)

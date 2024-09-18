@@ -54,7 +54,6 @@ public sealed class ReplacementContext
     public ReplacementContext WithOverride(string key, Func<string> repFactory)
         => WithOverride(key, () => new ValueTask<string>(repFactory()));
 
-
     public ReplacementContext WithOverride(Regex regex, Func<Match, ValueTask<string>> repFactory)
     {
         if (_regexPatterns.Add(regex.ToString()))
