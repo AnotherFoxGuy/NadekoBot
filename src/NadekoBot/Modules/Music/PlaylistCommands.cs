@@ -130,7 +130,6 @@ public sealed partial class Music
                 return;
             }
 
-            // todo check locally queued songs
             var songs = mp.GetQueuedTracks()
                           .Select(s => new PlaylistSong
                           {
