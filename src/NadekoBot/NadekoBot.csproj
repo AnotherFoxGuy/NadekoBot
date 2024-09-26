@@ -34,13 +34,12 @@
         <PackageReference Include="Google.Apis.Urlshortener.v1" Version="1.41.1.138"/>
         <PackageReference Include="Google.Apis.YouTube.v3" Version="1.68.0.3414"/>
         <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.49.0.2084"/>
-        <!--        <PackageReference Include="Grpc.AspNetCore" Version="2.62.0" />-->
-        <PackageReference Include="Google.Protobuf" Version="3.26.1"/>
-        <PackageReference Include="Grpc.Net.ClientFactory" Version="2.62.0"/>
-        <PackageReference Include="Grpc.Tools" Version="2.63.0">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        
+        <PackageReference Include="Google.Protobuf" Version="3.28.2" />
+        <PackageReference Include="Grpc" Version="2.46.6" />
+        <PackageReference Include="Grpc.Net.Client" Version="2.62.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.66.0" PrivateAssets="All" />
+        
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.5.0"/>
 
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
@@ -69,19 +68,19 @@
         <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1"/>
         <PackageReference Include="Serilog.Sinks.Seq" Version="7.0.1"/>
 
-        <PackageReference Include="SixLabors.Fonts" Version="2.0.4" />
-        <PackageReference Include="SixLabors.ImageSharp" Version="3.1.5" />
-        <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.4" />
+        <PackageReference Include="SixLabors.Fonts" Version="2.0.4"/>
+        <PackageReference Include="SixLabors.ImageSharp" Version="3.1.5"/>
+        <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.4"/>
         <PackageReference Include="SixLabors.Shapes" Version="1.0.0-beta0009"/>
-        <PackageReference Include="StackExchange.Redis" Version="2.8.0" />
+        <PackageReference Include="StackExchange.Redis" Version="2.8.0"/>
         <PackageReference Include="YamlDotNet" Version="15.1.4"/>
-        <PackageReference Include="SharpToken" Version="2.0.3" />
+        <PackageReference Include="SharpToken" Version="2.0.3"/>
 
         <PackageReference Include="JetBrains.Annotations" Version="2023.3.0"/>
 
 
         <!-- Db-related packages -->
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -89,7 +88,7 @@
 
         <PackageReference Include="linq2db.EntityFrameworkCore" Version="8.1.0"/>
 
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.8"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4"/>
 
         <PackageReference Include="EFCore.NamingConventions" Version="8.0.3"/>
@@ -103,20 +102,17 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\NadekoBot.GrpcApiBase\NadekoBot.GrpcApiBase.csproj"/>
         <ProjectReference Include="..\Nadeko.Medusa\Nadeko.Medusa.csproj"/>
         <ProjectReference Include="..\NadekoBot.Voice\NadekoBot.Voice.csproj"/>
         <ProjectReference Include="..\NadekoBot.Generators\NadekoBot.Generators.csproj" OutputItemType="Analyzer"/>
     </ItemGroup>
-
 
     <ItemGroup>
         <AdditionalFiles Include="data\strings\responses\responses.en-US.json"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Protobuf Include="..\NadekoBot.Coordinator\Protos\coordinator.proto" GrpcServices="Client">
-            <Link>Protos\coordinator.proto</Link>
-        </Protobuf>
         <None Update="data\**\*">
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -132,7 +128,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Grpc\" />
+        <Protobuf Include="..\NadekoBot.Coordinator\Protos\coordinator.proto">
+            <Link>_common\CoordinatorProtos\coordinator.proto</Link>
+<!--            <GrpcServices>Client</GrpcServices>-->
+        </Protobuf>
     </ItemGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'GlobalNadeko' ">
