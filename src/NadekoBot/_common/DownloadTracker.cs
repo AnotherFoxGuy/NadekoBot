@@ -14,6 +14,7 @@ public class DownloadTracker : INService
     public async Task EnsureUsersDownloadedAsync(IGuild guild)
     {
 #if GLOBAL_NADEKO
+        await Task.CompletedTask;
         return;
 #endif
         await _downloadUsersSemaphore.WaitAsync();

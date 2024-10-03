@@ -8,7 +8,6 @@ namespace NadekoBot.Services;
 public class YtdlOperation
 {
     private readonly string _baseArgString;
-    private readonly bool _isYtDlp;
 
     public YtdlOperation(string baseArgString)
     {
