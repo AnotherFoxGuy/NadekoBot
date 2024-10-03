@@ -29,6 +29,7 @@ public interface IBotCredentials
     string TwitchClientSecret { get; set; }
     GoogleApiConfig Google { get; set; }
     BotCacheImplemenation BotCache { get; set; }
+    Creds.GrpcApiConfig GrpcApi { get; set; }
 }
 
 public interface IVotesSettings
