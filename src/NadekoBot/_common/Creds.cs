@@ -3,10 +3,10 @@ using NadekoBot.Common.Yml;
 
 namespace NadekoBot.Common;
 
-public sealed class Creds : IBotCredentials
+public sealed class Creds : IBotCreds
 {
     [Comment("""DO NOT CHANGE""")]
-    public int Version { get; set; } = 10;
+    public int Version { get; set; } = 11;
 
     [Comment("""Bot token. Do not share with anyone ever -> https://discordapp.com/developers/applications/""")]
     public string Token { get; set; }
@@ -163,6 +163,11 @@ public sealed class Creds : IBotCredentials
              """)]
     public GrpcApiConfig GrpcApi { get; set; }
 
+    [Comment("""
+             Url to 
+             """)]
+    public SeqConfig Seq { get; set; }
+
     public Creds()
     {
         Token = string.Empty;
@@ -188,7 +193,8 @@ public sealed class Creds : IBotCredentials
         RestartCommand = new RestartConfig();
         Google = new GoogleApiConfig();
 
-        GrpcApi = new GrpcApiConfig();
+        GrpcApi = new();
+        Seq = new();
     }
 
     public class DbOptions
@@ -291,6 +297,12 @@ public sealed class Creds : IBotCredentials
         public string Host { get; set; } = "localhost";
         public int Port { get; set; } = 43120;
     }
+}
+
+public sealed class SeqConfig
+{
+    public string Url { get; init; }
+    public string ApiKey { get; init; }
 }
 
 public class GoogleApiConfig : IGoogleApiConfig
