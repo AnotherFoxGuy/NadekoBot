@@ -87,7 +87,7 @@ namespace NadekoBot.Generators
                 sw.WriteLine("namespace NadekoBot.GrpcApi;");
                 sw.WriteLine();
 
-                sw.WriteLine("public partial class PermsInterceptor");
+                sw.WriteLine("public partial class GrpcApiPermsInterceptor");
                 sw.WriteLine("{");
 
                 sw.Indent++;
