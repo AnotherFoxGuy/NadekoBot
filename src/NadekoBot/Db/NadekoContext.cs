@@ -62,7 +62,6 @@ public abstract class NadekoContext : DbContext
     public DbSet<ArchivedTodoListModel> TodosArchive { get; set; }
     public DbSet<HoneypotChannel> HoneyPotChannels { get; set; }
 
-    // todo add guild colors
     // public DbSet<GuildColors> GuildColors { get; set; }
 
 

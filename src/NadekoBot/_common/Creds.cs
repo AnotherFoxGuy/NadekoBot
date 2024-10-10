@@ -6,7 +6,7 @@ namespace NadekoBot.Common;
 public sealed class Creds : IBotCreds
 {
     [Comment("""DO NOT CHANGE""")]
-    public int Version { get; set; } = 12;
+    public int Version { get; set; } = 13;
 
     [Comment("""Bot token. Do not share with anyone ever -> https://discordapp.com/developers/applications/""")]
     public string Token { get; set; }
@@ -292,8 +292,8 @@ public sealed class Creds : IBotCreds
     public sealed record GrpcApiConfig
     {
         public bool Enabled { get; set; } = false;
-        public string CertPath { get; set; } = string.Empty;
-        public string CertPassword { get; set; } = string.Empty;
+        public string CertChain { get; set; } = string.Empty;
+        public string CertPrivateKey { get; set; } = string.Empty;
         public string Host { get; set; } = "localhost";
         public int Port { get; set; } = 43120;
     }
