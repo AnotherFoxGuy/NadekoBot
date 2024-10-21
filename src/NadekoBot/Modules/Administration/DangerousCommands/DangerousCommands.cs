@@ -138,8 +138,7 @@ public partial class Administration
         [OwnerOnly]
         public Task DeleteXp()
             => ConfirmActionInternalAsync("Delete Xp", () => _xcs.DeleteXp());
-
-
+        
         [Cmd]
         [OwnerOnly]
         public Task DeleteWaifus()

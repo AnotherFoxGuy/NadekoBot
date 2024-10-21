@@ -11,7 +11,7 @@ public static class GrpcApiExtensions
         => ulong.Parse(context.RequestHeaders.FirstOrDefault(x => x.Key == "userid")!.Value);
 }
 
-public sealed class OtherSvc : GrpcOther.GrpcOtherBase, INService
+public sealed class OtherSvc : GrpcOther.GrpcOtherBase, IGrpcSvc, INService
 {
     private readonly IDiscordClient _client;
     private readonly XpService _xp;
@@ -38,6 +38,9 @@ public sealed class OtherSvc : GrpcOther.GrpcOtherBase, INService
         _stats = stats;
         _cache = cache;
     }
+    
+    public ServerServiceDefinition Bind()
+        => GrpcOther.BindService(this);
 
     [GrpcNoAuthRequired]
     public override async Task<BotOnGuildReply> BotOnGuild(BotOnGuildRequest request, ServerCallContext context)
@@ -49,6 +52,22 @@ public sealed class OtherSvc : GrpcOther.GrpcOtherBase, INService
             Success = guild is not null
         };
         
+        return reply;
+    }
+
+    public override async Task<GetRolesReply> GetRoles(GetRolesRequest request, ServerCallContext context)
+    {
+        var g = await _client.GetGuildAsync(request.GuildId);
+        var roles = g?.Roles;
+        var reply = new GetRolesReply();
+        reply.Roles.AddRange(roles?.Select(x => new RoleReply()
+        {
+            Id = x.Id,
+            Name = x.Name,
+            Color = x.Color.ToString(),
+            IconUrl = x.GetIconUrl() ?? string.Empty,
+        }) ?? new List<RoleReply>());
+
         return reply;
     }
     
