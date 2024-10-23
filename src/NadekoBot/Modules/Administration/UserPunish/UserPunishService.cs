@@ -2,7 +2,6 @@
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
-using NadekoBot.Common.TypeReaders.Models;
 using NadekoBot.Modules.Permissions.Services;
 using NadekoBot.Db.Models;
 using Newtonsoft.Json;
