@@ -1425,3 +1425,23 @@ keep:
   - keep
 leaveunkeptservers:
   - leaveunkeptservers
+ncanvas:
+  - ncanvas
+  - nc
+  - ncanv
+ncsetimg:
+  - ncsetimg
+  - ncsi
+ncsetpixel:
+  - ncsetpixel
+  - ncsp
+  - ncs
+nczoom:
+  - nczoom
+  - ncz
+ncpixel:
+  - ncpixel
+  - ncp
+  - ncgp
+ncreset:
+  - ncreset
