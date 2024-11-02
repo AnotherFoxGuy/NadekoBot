@@ -1445,3 +1445,8 @@ ncpixel:
   - ncgp
 ncreset:
   - ncreset
+translateflags:
+  - translateflags
+  - trfl
+  - fltr
+  - transflags

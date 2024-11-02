@@ -453,7 +453,6 @@ public sealed class SelfService : IExecNoCommand, IReadyExecutor, INService
                                       {
                                           x.UserId,
                                           x.Username,
-                                          x.Discriminator
                                       })
                                       .Where(x => users.Select(y => y.Id).Contains(x.UserId))
                                       .ToArrayAsyncEF();
@@ -465,12 +464,11 @@ public sealed class SelfService : IExecNoCommand, IReadyExecutor, INService
                              UserId = x.Id,
                              AvatarId = x.AvatarId,
                              Username = x.Username,
-                             Discriminator = x.Discriminator
                          });
 
         var added = (await ctx.BulkCopyAsync(usersToAdd)).RowsCopied;
         var toUpdateUserIds = presentDbUsers
-                              .Where(x => x.Username == "Unknown" && x.Discriminator == "????")
+                              .Where(x => x.Username.StartsWith("??"))
                               .Select(x => x.UserId)
                               .ToArray();
 
@@ -481,7 +479,6 @@ public sealed class SelfService : IExecNoCommand, IReadyExecutor, INService
                      .UpdateAsync(x => new DiscordUser()
                      {
                          Username = user.Username,
-                         Discriminator = user.Discriminator,
 
                          // .award tends to set AvatarId and DateAdded to NULL, so account for that.
                          AvatarId = user.AvatarId,
