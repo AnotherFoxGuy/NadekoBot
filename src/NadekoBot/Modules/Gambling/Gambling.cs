@@ -14,14 +14,6 @@ using System.Text;
 using NadekoBot.Modules.Gambling.Rps;
 using NadekoBot.Common.TypeReaders;
 using NadekoBot.Modules.Patronage;
-using SixLabors.Fonts;
-using SixLabors.Fonts.Unicode;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Drawing.Processing;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
-using Color = SixLabors.ImageSharp.Color;
-using Random = System.Random;
 
 namespace NadekoBot.Modules.Gambling;
 
@@ -152,6 +144,18 @@ public partial class Gambling : GamblingModule<GamblingService>
                 (smc) => RemindTimelyAction(smc, DateTime.UtcNow.Add(TimeSpan.FromMilliseconds(ms)))
             );
 
+    private NadekoInteractionBase CreateTimelyInteraction()
+        => _inter
+            .Create(ctx.User.Id,
+                new ButtonBuilder(
+                    label: "Timely",
+                    emote: Emoji.Parse("💰"),
+                    customId: "timely:" + _rng.Next(123456, 999999)),
+                async (smc) =>
+                {
+                    await ClaimTimely();
+                });
+
     [Cmd]
     public async Task Timely()
     {
@@ -214,10 +218,18 @@ public partial class Gambling : GamblingModule<GamblingService>
             //     _ = captcha.DeleteAsync();
             // }
 
-            // await Response()
-                // .Interaction(_inter.Create(ctx.User.Id,new ButtonBuilder("Timely", $"timely:{rng}" Emoji.Parse("⏰")),null))
+            var interaction = CreateTimelyInteraction();
+            var msg = await Response().Pending(strs.timely_button).Interaction(interaction).SendAsync();
+            await msg.DeleteAsync();
+            return;
         }
 
+        await ClaimTimely();
+    }
+
+    private async Task ClaimTimely()
+    {
+        var period = Config.Timely.Cooldown;
         if (await _service.ClaimTimelyAsync(ctx.User.Id, period) is { } remainder)
         {
             // Get correct time form remainder
@@ -236,6 +248,7 @@ public partial class Gambling : GamblingModule<GamblingService>
         }
 
 
+        var val = Config.Timely.Amount;
         var patron = await _ps.GetPatronAsync(ctx.User.Id);
 
         var percentBonus = (_ps.PercentBonus(patron) / 100f);
