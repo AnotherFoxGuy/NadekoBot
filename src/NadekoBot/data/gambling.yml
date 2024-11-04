@@ -276,7 +276,6 @@ slots:
 # Bonus config for server boosts
 boostBonus:
   # Users will receive a bonus if they boost any of these servers
-  guildIds:
-    - 117523346618318850
+  guildIds: []
   # This bonus will be added before any other multiplier is applied to the .timely command
   baseTimelyBonus: 50
