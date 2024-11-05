@@ -1,5 +1,5 @@
 # DO NOT CHANGE
-version: 5
+version: 6
 coins:
   heads:
     - https://cdn.nadeko.bot/coins/heads3.png
@@ -22,15 +22,13 @@ dice:
   - https://cdn.nadeko.bot/other/dice/9.png
 xp:
   bg: https://cdn.nadeko.bot/other/xp/bg_k.png
-rip:
-  bg: https://cdn.nadeko.bot/other/rip/rip.png
-  overlay: https://cdn.nadeko.bot/other/rip/overlay.png
 slots:
   emojis:
-    - https://cdn.nadeko.bot/slots/0.png
-    - https://cdn.nadeko.bot/slots/1.png
-    - https://cdn.nadeko.bot/slots/2.png
-    - https://cdn.nadeko.bot/slots/3.png
-    - https://cdn.nadeko.bot/slots/4.png
-    - https://cdn.nadeko.bot/slots/5.png
+    - https://cdn.nadeko.bot/slots/10.png
+    - https://cdn.nadeko.bot/slots/11.png
+    - https://cdn.nadeko.bot/slots/12.png
+    - https://cdn.nadeko.bot/slots/13.png
+    - https://cdn.nadeko.bot/slots/14.png
+    - https://cdn.nadeko.bot/slots/15.png
+    - https://cdn.nadeko.bot/slots/16.png
   bg: https://cdn.nadeko.bot/slots/slots_bg.png
