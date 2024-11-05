@@ -1454,3 +1454,6 @@ translateflags:
   - trfl
   - fltr
   - transflags
+rakeback:
+  - rakeback
+  - rb
