@@ -4,6 +4,7 @@ using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Services.Currency;
 using NadekoBot.Db.Models;
+using NadekoBot.Modules.Gambling;
 using System.Collections.Concurrent;
 
 namespace NadekoBot.Services;
@@ -317,6 +318,8 @@ public sealed class GamblingTxTracker : ITxTracker, INService, IReadyExecutor
             GamblingGame.Race => 0.06m,
             _ => 0
         };
+
+  
 }
 
 public sealed class UserBetStats

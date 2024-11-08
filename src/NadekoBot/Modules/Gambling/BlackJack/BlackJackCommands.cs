@@ -8,7 +8,7 @@ namespace NadekoBot.Modules.Gambling;
 
 public partial class Gambling
 {
-    public partial class BlackJackCommands : GamblingSubmodule<BlackJackService>
+    public partial class BlackJackCommands : GamblingModule<BlackJackService>
     {
         public enum BjAction
         {
