@@ -23,27 +23,6 @@ public partial class Administration
             _mute = mute;
         }
 
-        private async Task<bool> CheckRoleHierarchy(IGuildUser target)
-        {
-            var curUser = ((SocketGuild)ctx.Guild).CurrentUser;
-            var ownerId = ctx.Guild.OwnerId;
-            var modMaxRole = ((IGuildUser)ctx.User).GetRoles().Max(r => r.Position);
-            var targetMaxRole = target.GetRoles().Max(r => r.Position);
-            var botMaxRole = curUser.GetRoles().Max(r => r.Position);
-            // bot can't punish a user who is higher in the hierarchy. Discord will return 403
-            // moderator can be owner, in which case role hierarchy doesn't matter
-            // otherwise, moderator has to have a higher role
-            if (botMaxRole <= targetMaxRole
-                || (ctx.User.Id != ownerId && targetMaxRole >= modMaxRole)
-                || target.Id == ownerId)
-            {
-                await Response().Error(strs.hierarchy).SendAsync();
-                return false;
-            }
-
-            return true;
-        }
-
         [Cmd]
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.BanMembers)]

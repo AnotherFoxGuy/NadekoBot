@@ -154,16 +154,16 @@ public partial class Gambling : GamblingModule<GamblingService>
         {
             var password = _service.GeneratePassword();
 
-            var img = new Image<Rgba32>(70, 35);
+            var img = new Image<Rgba32>(60, 30);
 
-            var font = _fonts.NotoSans.CreateFont(30);
+            var font = _fonts.NotoSans.CreateFont(25);
             var outlinePen = new SolidPen(Color.Black, 1f);
             var strikeoutRun = new RichTextRun
             {
                 Start = 0,
                 End = password.GetGraphemeCount(),
                 Font = font,
-                StrikeoutPen = new SolidPen(Color.White, 3),
+                StrikeoutPen = new SolidPen(Color.White, 4),
                 TextDecorations = TextDecorations.Strikeout
             };
             // draw password on the image

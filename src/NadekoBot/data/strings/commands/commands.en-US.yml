@@ -323,7 +323,7 @@ vcrolerm:
   params:
     - vcId:
         desc: "The voice channel ID to remove the vcrole from."
-asar:
+saradd:
   desc: Adds a role to the list of self-assignable roles. You can also specify a group. If 'Exclusive self-assignable roles' feature is enabled (`{0}tesar`), users will be able to pick one role per group.
   ex:
     - Gamer
@@ -336,7 +336,7 @@ asar:
         desc: "The ID of a group that the designated role should belong to."
       role:
         desc: "The role that can be assigned by the user."
-rsar:
+sarremove:
   desc: Removes a specified role from the list of self-assignable roles.
   ex:
     - Gamer
@@ -345,7 +345,7 @@ rsar:
   params:
     - role:
         desc: "The role to remove from the list of self-assignable roles."
-lsar:
+sarlist:
   desc: Lists self-assignable roles. Shows 20 roles per page.
   ex:
     - ''
@@ -353,22 +353,53 @@ lsar:
   params:
     - page:
         desc: "The page number to show."
-sargn:
+sarautodelete:
+  desc: Toggles the automatic deletion of the user's message and Nadeko's confirmations for `{0}iam` and `{0}iamn` commands.
+  ex:
+    - ''
+  params:
+    - { }
+sargroupname:
   desc: Sets a self assignable role group name. Provide no name to remove.
   ex:
     - 1 Faction
     - 2
   params:
     - group:
-        desc: "The ID of the group to name."
+        desc: "The group number" 
       name:
         desc: "The name to assign."
-togglexclsar:
+sargroupdelete:
+  desc: "Deletes a self-assignable role group"
+  ex:
+    - 0
+  params:
+    - group:
+        desc: "The number of the group to delete."
+sarexclusive:
   desc: Toggles whether self-assigned roles are exclusive. While enabled, users can only have one self-assignable role per group.
   ex:
     - ''
   params:
     - { }
+sarrolelevelreq:
+  desc: Set a level requirement on a self-assignable role.
+  ex:
+    - 5 SomeRole
+  params:
+    - level:
+        desc: "The minimum level required for the role."
+      role:
+        desc: "The role that must be assigned before the user can assign this one."
+sargrouprolereq:
+  desc: Set a role that users have to have in order to assign a self-assignable role from the specified group.
+  ex:
+    - 1 SomeRole
+  params:
+    - group:
+        desc: "The group number."
+      role:
+        desc: "The role that is required."
 iam:
   desc: Adds a role to you that you choose. Role must be on the list of self-assignable roles.
   ex:
@@ -2464,12 +2495,6 @@ muterole:
   params:
     - role:
         desc: "The role that determines whether users are muted or not."
-adsarm:
-  desc: Toggles the automatic deletion of the user's message and Nadeko's confirmations for `{0}iam` and `{0}iamn` commands.
-  ex:
-    - ''
-  params:
-    - { }
 setstream:
   desc: Sets the bots stream. First parameter is the twitch link, second parameter is stream name.
   ex:
@@ -3356,7 +3381,7 @@ globalcommand:
 globalmodule:
   desc: Toggles whether a module can be used on any server.
   ex:
-    - 'Gambling' 
+    - 'Gambling'
   params:
     - module:
         desc: "The type of module or configuration information being toggled."
@@ -3919,15 +3944,6 @@ stock:
   params:
     - query:
         desc: "The ticker symbol or company name used to retrieve the stock's information."
-rolelevelreq:
-  desc: Set a level requirement on a self-assignable role.
-  ex:
-    - 5 SomeRole
-  params:
-    - level:
-        desc: "The minimum level required for the role."
-      role:
-        desc: "The role that must be assigned before the user can assign this one."
 massban:
   desc: Bans multiple users at once. Specify a space separated list of IDs of users who you wish to ban.
   ex:
@@ -4676,7 +4692,7 @@ betstats:
     - '@someone lula'
     - 'bd'
   params:
-    - {}
+    - { }
     - user:
         desc: 'The user for who to show the betstats for.'
     - user:
@@ -4691,10 +4707,10 @@ rakeback:
     Rakeback is accumulated by betting (not by winning or losing).
     Default rakeback is 0.05 * house edge
     House edge is defined per game
-  ex: 
+  ex:
     - ''
   params:
-    - {}
+    - { }
 snipe:
   desc: |-
     Snipe the message you replied to with this command.

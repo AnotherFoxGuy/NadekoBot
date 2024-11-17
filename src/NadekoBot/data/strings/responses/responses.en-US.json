@@ -896,9 +896,6 @@
   "rank": "Rank",
   "template_reloaded": "Xp template has been reloaded.",
   "expr_edited": "Expression Edited",
-  "self_assign_are_exclusive": "You can only choose 1 role from each group.",
-  "self_assign_are_not_exclusive": "You can choose any number of roles from any group.",
-  "self_assign_group": "Group {0}",
   "new_reaction_event": "Add {0} reaction to this message to get {1}\n{2} left to be awarded.",
   "new_gamestatus_event": "Type the secret code in any channel to receive {1}\n{2} left to be awarded.",
   "event_duration_footer": "This event is active for up to {0} hours.",
@@ -947,6 +944,7 @@
   "did_you_mean": "Did you mean {0}?",
   "self_assign_level_req": "Self assignable role {0} now requires at least server level {1}.",
   "self_assign_not_level": "That self-assignable role requires at least server level {0}.",
+  "self_assign_role_req": "You need {0} role in order to assign yourself a role from group {1}",
   "invalid": "Invalid / Can't be found ({0})",
   "mass_kill_in_progress": "Mass Banning and Blacklisting of {0} users is in progress...",
   "mass_ban_in_progress": "Banning {0} users...",
@@ -1118,5 +1116,10 @@
   "rakeback_claimed": "You've claimed {0} as rakeback!",
   "rakeback_none": "You don't have any rakeback to claim yet.",
   "rakeback_available": "You have {0} rakeback available. Click the button to claim.",
-  "sniped_by": "Sniped by {0}"
+  "sniped_by": "Sniped by {0}",
+  "self_assign_group_role_req": "Users can now self-assign a role from group {0} only if they have {1} role.",
+  "sar_group_not_found": "Group with that number doesn't exist.",
+  "sar_group_deleted": "Group {0} deleted.",
+  "choose_one": "Choose one" ,
+  "requires_role": "Requires role: {0}"
 }

@@ -31,10 +31,11 @@ public class GuildConfig : DbEntity
     // public bool SendBoostMessage { get; set; }
     // pulic int BoostMessageDeleteAfter { get; set; }
 
-    //self assignable roles
+    //todo FUTURE: DELETE, UNUSED
     public bool ExclusiveSelfAssignedRoles { get; set; }
     public bool AutoDeleteSelfAssignedRoleMessages { get; set; }
-
+    
+    
     //stream notifications
     public HashSet<FollowedStream> FollowedStreams { get; set; } = new();
 
@@ -91,7 +92,6 @@ public class GuildConfig : DbEntity
     public List<FeedSub> FeedSubs { get; set; } = new();
     public bool NotifyStreamOffline { get; set; }
     public bool DeleteStreamOnlineMessage { get; set; }
-    public List<GroupName> SelfAssignableRoleGroupNames { get; set; }
     public int WarnExpireHours { get; set; }
     public WarnExpireAction WarnExpireAction { get; set; } = WarnExpireAction.Clear;
 
