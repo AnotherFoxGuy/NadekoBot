@@ -5,7 +5,7 @@ namespace NadekoBot.Modules.Searches.Common.StreamNotifications.Providers;
 /// <summary>
 ///     Abstract class implemented by providers of all supported platforms
 /// </summary>
-public abstract class Provider
+public abstract class StreamProvider
 {
     /// <summary>
     ///     Type of the platform.
