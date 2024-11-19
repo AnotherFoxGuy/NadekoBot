@@ -53,7 +53,7 @@ public partial class Utility
                                .WithTitle(guild.Name)
                                .AddField(GetText(strs.id), guild.Id.ToString(), true)
                                .AddField(GetText(strs.owner), ownername.ToString(), true)
-                               .AddField(GetText(strs.members), (guild as SocketGuild)?.MemberCount ?? guild.ApproximateMemberCount, true)
+                               .AddField(GetText(strs.members), (guild as SocketGuild)?.MemberCount.ToString() ?? guild.ApproximateMemberCount?.ToString() ?? "?", true)
                                .AddField(GetText(strs.channels), channels, true)
                                .AddField(GetText(strs.created_at), $"{createdAt:dd.MM.yyyy HH:mm}", true)
                                .AddField(GetText(strs.roles), (guild.Roles.Count - 1).ToString(), true)
