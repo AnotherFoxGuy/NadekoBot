@@ -254,6 +254,12 @@ public sealed class CleanupService : ICleanupService, IReadyExecutor, INService
                                        .Contains(x.ServerId))
                  .DeleteAsync();
         
+        // delete button roles
+        await ctx.GetTable<ButtonRole>()
+                 .Where(x => !tempTable.Select(x => x.GuildId)
+                                       .Contains(x.GuildId))
+                 .DeleteAsync();
+        
         return new()
         {
             GuildCount = guildIds.Keys.Count,

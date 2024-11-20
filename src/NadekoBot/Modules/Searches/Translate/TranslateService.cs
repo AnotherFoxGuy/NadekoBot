@@ -67,7 +67,7 @@ public sealed class TranslateService : ITranslateService, IExecNoCommand, IReady
                 || msg.Content.Equals(output, StringComparison.InvariantCultureIgnoreCase))
                 return;
 
-            var embed = _sender.CreateEmbed().WithOkColor();
+            var embed = _sender.CreateEmbed(guild?.Id).WithOkColor();
 
             if (autoDelete)
             {

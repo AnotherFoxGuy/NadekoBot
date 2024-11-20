@@ -114,7 +114,7 @@ public sealed partial class Help : NadekoModule<HelpService>
               .AddFooter(false)
               .Page((items, _) =>
               {
-                  var embed = _sender.CreateEmbed().WithOkColor().WithTitle(GetText(strs.list_of_modules));
+                  var embed = CreateEmbed().WithOkColor().WithTitle(GetText(strs.list_of_modules));
 
                   if (!items.Any())
                   {
@@ -315,7 +315,7 @@ public sealed partial class Help : NadekoModule<HelpService>
                  .WithPlaceholder("Select a submodule to see detailed commands");
 
         var groups = cmdsWithGroup.ToArray();
-        var embed = _sender.CreateEmbed().WithOkColor();
+        var embed = CreateEmbed().WithOkColor();
         foreach (var g in groups)
         {
             sb.AddOption(g.Key, g.Key);
@@ -383,7 +383,7 @@ public sealed partial class Help : NadekoModule<HelpService>
               .Interaction(inter)
               .Page((items, _) =>
               {
-                  var eb = _sender.CreateEmbed()
+                  var eb = CreateEmbed()
                                   .WithTitle(GetText(strs.cmd_group_commands(group.Name)))
                                   .WithOkColor();
 
@@ -520,7 +520,7 @@ public sealed partial class Help : NadekoModule<HelpService>
     [OnlyPublicBot]
     public async Task Donate()
     {
-        var eb = _sender.CreateEmbed()
+        var eb = CreateEmbed()
                         .WithOkColor()
                         .WithTitle("Thank you for considering to donate to the NadekoBot project!");
 

@@ -27,6 +27,9 @@ public abstract class NadekoModule : ModuleBase
     protected ICommandContext ctx
         => Context;
 
+    protected EmbedBuilder CreateEmbed()
+        => _sender.CreateEmbed(ctx.Guild?.Id);
+    
     public ResponseBuilder Response()
         => new ResponseBuilder(Strings, _bcs, (DiscordSocketClient)ctx.Client)
             .Context(ctx);
@@ -91,7 +94,7 @@ public abstract class NadekoModule : ModuleBase
 
                 if (validate is not null && !validate(arg.Content))
                     return Task.CompletedTask;
-                
+
                 if (userInputTask.TrySetResult(arg.Content))
                     userMsg.DeleteAfter(1);
 
@@ -100,7 +103,7 @@ public abstract class NadekoModule : ModuleBase
             return Task.CompletedTask;
         }
     }
-    
+
     protected async Task<bool> CheckRoleHierarchy(IGuildUser target)
     {
         var curUser = ((SocketGuild)ctx.Guild).CurrentUser;
@@ -114,6 +117,25 @@ public abstract class NadekoModule : ModuleBase
         if (botMaxRole <= targetMaxRole
             || (ctx.User.Id != ownerId && targetMaxRole >= modMaxRole)
             || target.Id == ownerId)
+        {
+            await Response().Error(strs.hierarchy).SendAsync();
+            return false;
+        }
+
+        return true;
+    }
+
+    protected async Task<bool> CheckRoleHierarchy(IRole role)
+    {
+        var botUser = ((SocketGuild)ctx.Guild).CurrentUser;
+        var ownerId = ctx.Guild.OwnerId;
+        var modMaxRole = ((IGuildUser)ctx.User).GetRoles().Max(r => r.Position);
+        var botMaxRole = botUser.GetRoles().Max(r => r.Position);
+
+        // role must be lower than the bot role
+        // and the mod must have a higher role
+        if (botMaxRole <= role.Position
+            || (ctx.User.Id != ownerId && role.Position >= modMaxRole))
         {
             await Response().Error(strs.hierarchy).SendAsync();
             return false;

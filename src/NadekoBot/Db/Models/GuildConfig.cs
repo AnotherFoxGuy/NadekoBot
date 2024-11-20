@@ -13,24 +13,6 @@ public class GuildConfig : DbEntity
 
     public string AutoAssignRoleIds { get; set; }
 
-    // //greet stuff
-    // public int AutoDeleteGreetMessagesTimer { get; set; } = 30;
-    // public int AutoDeleteByeMessagesTimer { get; set; } = 30;
-    //
-    // public ulong GreetMessageChannelId { get; set; }
-    // public ulong ByeMessageChannelId { get; set; }
-    //
-    // public bool SendDmGreetMessage { get; set; }
-    // public string DmGreetMessageText { get; set; } = "Welcome to the %server% server, %user%!";
-    //
-    // public bool SendChannelGreetMessage { get; set; }
-    // public string ChannelGreetMessageText { get; set; } = "Welcome to the %server% server, %user%!";
-    //
-    // public bool SendChannelByeMessage { get; set; }
-    // public string ChannelByeMessageText { get; set; } = "%user% has left!";
-    // public bool SendBoostMessage { get; set; }
-    // pulic int BoostMessageDeleteAfter { get; set; }
-
     //todo FUTURE: DELETE, UNUSED
     public bool ExclusiveSelfAssignedRoles { get; set; }
     public bool AutoDeleteSelfAssignedRoleMessages { get; set; }
@@ -97,9 +79,5 @@ public class GuildConfig : DbEntity
 
     public bool DisableGlobalExpressions { get; set; } = false;
 
-    #region Boost Message
-
     public bool StickyRoles { get; set; }
-
-    #endregion
 }

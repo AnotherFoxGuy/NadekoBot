@@ -56,7 +56,7 @@ public partial class Gambling
             foreach (var i in images)
                 i.Dispose();
 
-            var eb = _sender.CreateEmbed()
+            var eb = CreateEmbed()
                             .WithOkColor();
 
             var toSend = string.Empty;
@@ -171,7 +171,7 @@ public partial class Gambling
                 return;
             }
 
-            var eb = _sender.CreateEmbed()
+            var eb = CreateEmbed()
                             .WithOkColor()
                             .WithAuthor(ctx.User)
                             .WithDescription(result.Card.GetEmoji())

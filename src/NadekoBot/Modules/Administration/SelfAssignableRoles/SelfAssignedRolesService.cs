@@ -129,7 +129,7 @@ public class SelfAssignedRolesService : INService, IReadyExecutor
         return changes > 0;
     }
 
-    public async Task<bool> SetGroupExclusivityAsync(ulong guildId, int groupNumber)
+    public async Task<bool?> SetGroupExclusivityAsync(ulong guildId, int groupNumber)
     {
         await using var ctx = _db.GetDbContext();
         var changes = await ctx.GetTable<SarGroup>()
@@ -142,8 +142,7 @@ public class SelfAssignedRolesService : INService, IReadyExecutor
 
         if (changes.Length == 0)
         {
-            // todo group not found
-            return false;
+            return null;
         }
 
         return changes[0];
@@ -154,7 +153,7 @@ public class SelfAssignedRolesService : INService, IReadyExecutor
         await using var ctx = _db.GetDbContext();
 
         var group = await ctx.GetTable<SarGroup>()
-                             .Where(x => x.Roles.Any(x => x.RoleId == roleId))
+                             .Where(x => x.GuildId == guildId && x.Roles.Any(x => x.RoleId == roleId))
                              .LoadWith(x => x.Roles)
                              .FirstOrDefaultAsyncLinqToDB();
 

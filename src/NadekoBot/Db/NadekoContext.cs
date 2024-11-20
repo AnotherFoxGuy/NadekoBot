@@ -74,6 +74,30 @@ public abstract class NadekoContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        #region GuildColors
+
+        modelBuilder.Entity<GuildColors>()
+                    .HasIndex(x => x.GuildId)
+                    .IsUnique(true);
+
+        #endregion
+
+        #region Button Roles
+
+        modelBuilder.Entity<ButtonRole>(br =>
+        {
+            br.HasIndex(x => x.GuildId)
+              .IsUnique(false);
+
+            br.HasAlternateKey(x => new
+            {
+                x.RoleId,
+                x.MessageId,
+            });
+        });
+
+        #endregion
+
         #region New Sar
 
         modelBuilder.Entity<SarGroup>(sg =>

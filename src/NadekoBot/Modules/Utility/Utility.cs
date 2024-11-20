@@ -131,12 +131,12 @@ public partial class Utility : NadekoModule
               {
                   if (names.Count == 0)
                   {
-                      return _sender.CreateEmbed()
+                      return CreateEmbed()
                                     .WithErrorColor()
                                     .WithDescription(GetText(strs.nobody_playing_game));
                   }
 
-                  var eb = _sender.CreateEmbed()
+                  var eb = CreateEmbed()
                                   .WithOkColor();
 
                   var users = names.Join('\n');
@@ -180,11 +180,11 @@ public partial class Utility : NadekoModule
               .Page((pageUsers, _) =>
               {
                   if (pageUsers.Count == 0)
-                      return _sender.CreateEmbed().WithOkColor().WithDescription(GetText(strs.no_user_on_this_page));
+                      return CreateEmbed().WithOkColor().WithDescription(GetText(strs.no_user_on_this_page));
 
                   var roleName = Format.Bold(role?.Name ?? "No Role");
 
-                  return _sender.CreateEmbed()
+                  return CreateEmbed()
                                 .WithOkColor()
                                 .WithTitle(GetText(strs.inrole_list(roleName, roleUsers.Count)))
                                 .WithDescription(string.Join("\n", pageUsers));
@@ -327,7 +327,7 @@ public partial class Utility : NadekoModule
         if (string.IsNullOrWhiteSpace(ownerIds))
             ownerIds = "-";
 
-        var eb = _sender.CreateEmbed()
+        var eb = CreateEmbed()
                         .WithOkColor()
                         .WithAuthor($"NadekoBot v{StatsService.BotVersion}",
                             "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/avatar.png",
@@ -583,12 +583,12 @@ public partial class Utility : NadekoModule
               {
                   if (!guilds.Any())
                   {
-                      return _sender.CreateEmbed()
+                      return CreateEmbed()
                                     .WithDescription(GetText(strs.listservers_none))
                                     .WithErrorColor();
                   }
 
-                  var embed = _sender.CreateEmbed()
+                  var embed = CreateEmbed()
                                      .WithOkColor();
                   foreach (var guild in guilds)
                       embed.AddField(guild.Name, GetText(strs.listservers(guild.Id, guild.MemberCount, guild.OwnerId)));
@@ -770,7 +770,7 @@ public partial class Utility : NadekoModule
             var output = result.ReturnValue?.ToString();
             if (!string.IsNullOrWhiteSpace(output))
             {
-                var eb = _sender.CreateEmbed()
+                var eb = CreateEmbed()
                                 .WithOkColor()
                                 .AddField("Code", scriptText)
                                 .AddField("Output", output.TrimTo(512)!);
@@ -796,7 +796,7 @@ public partial class Utility : NadekoModule
                 return;
         }
 
-        var eb = _sender.CreateEmbed()
+        var eb = CreateEmbed()
                         .WithOkColor()
                         .WithDescription(msg.Content)
                         .WithAuthor(msg.Author)

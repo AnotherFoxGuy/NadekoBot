@@ -451,6 +451,65 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("blacklist", (string)null);
                 });
 
+            modelBuilder.Entity("NadekoBot.Db.Models.ButtonRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ButtonId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("buttonid");
+
+                    b.Property<decimal>("ChannelId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("channelid");
+
+                    b.Property<string>("Emote")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("emote");
+
+                    b.Property<decimal>("GuildId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("guildid");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("label");
+
+                    b.Property<decimal>("MessageId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("messageid");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("integer")
+                        .HasColumnName("position");
+
+                    b.Property<decimal>("RoleId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("roleid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_buttonrole");
+
+                    b.HasAlternateKey("RoleId", "MessageId")
+                        .HasName("ak_buttonrole_roleid_messageid");
+
+                    b.HasIndex("GuildId")
+                        .HasDatabaseName("ix_buttonrole_guildid");
+
+                    b.ToTable("buttonrole", (string)null);
+                });
+
             modelBuilder.Entity("NadekoBot.Db.Models.ClubApplicants", b =>
                 {
                     b.Property<int>("ClubId")
@@ -1200,6 +1259,44 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasDatabaseName("ix_giveawayuser_giveawayid_userid");
 
                     b.ToTable("giveawayuser", (string)null);
+                });
+
+            modelBuilder.Entity("NadekoBot.Db.Models.GuildColors", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ErrorColor")
+                        .HasMaxLength(9)
+                        .HasColumnType("character varying(9)")
+                        .HasColumnName("errorcolor");
+
+                    b.Property<decimal>("GuildId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("guildid");
+
+                    b.Property<string>("OkColor")
+                        .HasMaxLength(9)
+                        .HasColumnType("character varying(9)")
+                        .HasColumnName("okcolor");
+
+                    b.Property<string>("PendingColor")
+                        .HasMaxLength(9)
+                        .HasColumnType("character varying(9)")
+                        .HasColumnName("pendingcolor");
+
+                    b.HasKey("Id")
+                        .HasName("pk_guildcolors");
+
+                    b.HasIndex("GuildId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_guildcolors_guildid");
+
+                    b.ToTable("guildcolors", (string)null);
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.GuildConfig", b =>

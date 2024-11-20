@@ -8,5 +8,5 @@ public interface IMessageSenderService
 
     ResponseBuilder Response(SocketMessageComponent smc);
 
-    NadekoEmbedBuilder CreateEmbed();
+    NadekoEmbedBuilder CreateEmbed(ulong? guildId = null);
 }

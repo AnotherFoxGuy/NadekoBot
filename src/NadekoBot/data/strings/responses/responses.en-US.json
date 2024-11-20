@@ -1121,5 +1121,16 @@
   "sar_group_not_found": "Group with that number doesn't exist.",
   "sar_group_deleted": "Group {0} deleted.",
   "choose_one": "Choose one" ,
-  "requires_role": "Requires role: {0}"
+  "requires_role": "Requires role: {0}",
+  "invalid_message_id": "Invalid Message Id.",
+  "invalid_message_link": "The message link must be from this server.",
+  "btnrole_message_max": "Limit reached. You may have up to 25 button roles per message.",
+  "btnrole_not_found": "No button role found on that message.",
+  "btnrole_none": "There are no button roles on this page.",
+  "btnrole_removeall_not_found": "Button role successfully removed but message wasn't found.",
+  "btnrole_removed": "Button role removed.",
+  "no_last_queued_found": "No last queued track found.",
+  "wrongsong_success": "Oops! Wrong song removed: {0}",
+  "server_not_found": "Server not found.",
+  "server_color_set": "Successfully set a new server color.",
 }

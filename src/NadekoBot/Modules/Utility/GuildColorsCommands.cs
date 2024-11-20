@@ -1,39 +1,66 @@
-﻿using NadekoBot.Db.Models;
+﻿using SixLabors.ImageSharp.PixelFormats;
 
 namespace NadekoBot.Modules.Utility;
 
-public interface IGuildColorsService
-{
-    
-}
-
-public sealed class GuildColorsService : IGuildColorsService, INService
-{
-    private readonly DbService _db;
-
-    public GuildColorsService(DbService db)
-    {
-        _db = db;
-    }
-
-    public async Task<GuildColors?> GetGuildColors(ulong guildId)
-    {
-        // get from database and cache it with linq2db
-
-        await using var ctx = _db.GetDbContext();
-
-        return null;
-        // return await ctx
-        //     .GuildColors
-        //     .FirstOrDefaultAsync(x => x.GuildId == guildId);
-
-    }
-}
-
 public partial class Utility
 {
+    [Group("sclr")]
     public class GuildColorsCommands : NadekoModule<IGuildColorsService>
     {
-        
+        [Cmd]
+        [UserPerm(GuildPerm.ManageGuild)]
+        [RequireContext(ContextType.Guild)]
+        public async Task ServerColorsShow()
+        {
+            EmbedBuilder[] ebs =
+            [
+                CreateEmbed()
+                    .WithOkColor()
+                    .WithDescription("\\✅"),
+                CreateEmbed()
+                    .WithPendingColor()
+                    .WithDescription("\\⏳\\⚠️"),
+                CreateEmbed()
+                    .WithErrorColor()
+                    .WithDescription("\\❌")
+            ];
+
+            await Response()
+                  .Embeds(ebs)
+                  .SendAsync();
+        }
+
+        [Cmd]
+        [UserPerm(GuildPerm.ManageGuild)]
+        [RequireContext(ContextType.Guild)]
+        public async Task ServerColorOk([Leftover] Rgba32? color = null)
+        {
+            await _service.SetOkColor(ctx.Guild.Id, color);
+
+            await Response().Confirm(strs.server_color_set).SendAsync();
+            await ServerColorsShow();
+        }
+
+        [Cmd]
+        [UserPerm(GuildPerm.ManageGuild)]
+        [RequireContext(ContextType.Guild)]
+        public async Task ServerColorPending([Leftover] Rgba32? color = null)
+        {
+            await _service.SetPendingColor(ctx.Guild.Id, color);
+
+            await Response().Confirm(strs.server_color_set).SendAsync();
+            await ServerColorsShow();
+        }
+
+        [Cmd]
+        [UserPerm(GuildPerm.ManageGuild)]
+        [RequireContext(ContextType.Guild)]
+        public async Task ServerColorError([Leftover] Rgba32? color = null)
+        {
+            await _service.SetErrorColor(ctx.Guild.Id, color);
+
+            await Response().Confirm(strs.server_color_set).SendAsync();
+            await ServerColorsShow();
+        }
     }
 }

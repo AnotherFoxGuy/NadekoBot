@@ -34,7 +34,7 @@
 //             decimal interest = 0,
 //             TimeSpan dueIn = default)
 //         {
-//             var eb = _sender.CreateEmbed()
+//             var eb = CreateEmbed()
 //                             .WithOkColor()
 //                             .WithDescription("User 0 Requests a loan from User {1}")
 //                             .AddField("Amount", amount, true)
@@ -53,7 +53,7 @@
 //                 .PageItems(loans)
 //                 .Page((items, page) =>
 //                 {
-//                     var eb = _sender.CreateEmbed()
+//                     var eb = CreateEmbed()
 //                                     .WithOkColor()
 //                                     .WithDescription("Current Loans");
 //

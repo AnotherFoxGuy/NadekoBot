@@ -129,25 +129,6 @@ public partial class Administration
             _sas = sas;
         }
 
-        protected async Task<bool> CheckRoleHierarchy(IRole role)
-        {
-            var botUser = ((SocketGuild)ctx.Guild).CurrentUser;
-            var ownerId = ctx.Guild.OwnerId;
-            var modMaxRole = ((IGuildUser)ctx.User).GetRoles().Max(r => r.Position);
-            var botMaxRole = botUser.GetRoles().Max(r => r.Position);
-
-            // role must be lower than the bot role
-            // and the mod must have a higher role
-            if (botMaxRole <= role.Position
-                || (ctx.User.Id != ownerId && role.Position >= modMaxRole))
-            {
-                await Response().Error(strs.hierarchy).SendAsync();
-                return false;
-            }
-
-            return true;
-        }
-
         [Cmd]
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.ManageMessages)]
@@ -244,7 +225,7 @@ public partial class Administration
                                        .GroupBy(x => x.SarGroupId)
                                        .OrderBy(x => x.Key);
 
-                      var eb = _sender.CreateEmbed()
+                      var eb = CreateEmbed()
                                       .WithOkColor()
                                       .WithTitle(GetText(strs.self_assign_list(groups.Sum(x => x.Roles.Count))));
 
@@ -310,10 +291,21 @@ public partial class Administration
         public async Task SarExclusive(int groupNumber)
         {
             var areExclusive = await _service.SetGroupExclusivityAsync(ctx.Guild.Id, groupNumber);
-            if (areExclusive)
+
+            if (areExclusive is null)
+            {
+                await Response().Error(strs.sar_group_not_found).SendAsync();
+                return;
+            }
+            
+            if (areExclusive is true)
+            {
                 await Response().Confirm(strs.self_assign_excl).SendAsync();
+            }
             else
+            {
                 await Response().Confirm(strs.self_assign_no_excl).SendAsync();
+            }
         }
 
         [Cmd]

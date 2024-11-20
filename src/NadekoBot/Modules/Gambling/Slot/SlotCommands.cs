@@ -65,7 +65,7 @@ public partial class Gambling
             await using var imgStream = await image.ToStreamAsync();
 
 
-            var eb = _sender.CreateEmbed()
+            var eb = CreateEmbed()
                             .WithAuthor(ctx.User)
                             .WithDescription(Format.Bold(text))
                             .WithImageUrl($"attachment://result.png")

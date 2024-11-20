@@ -1416,6 +1416,10 @@ todocomplete:
   - complete
   - done
   - finish
+todouncomplete:
+  - uncomplete
+  - undone
+  - unfinish
 todoarchiveadd:
   - add
   - create
@@ -1494,3 +1498,35 @@ gamblestatsreset:
 snipe:
   - snipe
   - sn
+btnroleadd:
+  - btnradd
+  - btnra
+btnroleremove:
+  - btnrrem
+  - btnrr
+  - btnrrm
+btnroleremoveall:
+  - btnrremall
+  - btnrra
+btnrolelist:
+  - btnrlist
+  - btnrl
+wrongsong:
+  - wrongsong
+  - wrongtrack
+servercolorsshow:
+  - show
+  - list
+  - l
+servercolorok:
+  - ok
+  - success
+servercolorerror:
+  - error
+  - fail
+  - err
+servercolorpending:
+  - pending
+  - warn
+  - warning
+  - pend

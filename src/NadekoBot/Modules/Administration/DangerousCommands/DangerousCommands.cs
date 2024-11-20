@@ -42,9 +42,9 @@ public partial class Administration
                    .Page((items, _) =>
                    {
                        if (!items.Any())
-                           return _sender.CreateEmbed().WithErrorColor().WithFooter(sql).WithDescription("-");
+                           return CreateEmbed().WithErrorColor().WithFooter(sql).WithDescription("-");
 
-                       return _sender.CreateEmbed()
+                       return CreateEmbed()
                               .WithOkColor()
                               .WithFooter(sql)
                               .WithTitle(string.Join(" ║ ", result.ColumnNames))
@@ -99,7 +99,7 @@ public partial class Administration
         {
             try
             {
-                var embed = _sender.CreateEmbed()
+                var embed = CreateEmbed()
                             .WithTitle(GetText(strs.sql_confirm_exec))
                             .WithDescription(Format.Code(sql));
 
@@ -119,7 +119,7 @@ public partial class Administration
         [OwnerOnly]
         public async Task PurgeUser(ulong userId)
         {
-            var embed = _sender.CreateEmbed()
+            var embed = CreateEmbed()
                 .WithDescription(GetText(strs.purge_user_confirm(Format.Bold(userId.ToString()))));
 
             if (!await PromptUserConfirmAsync(embed))

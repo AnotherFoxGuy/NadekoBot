@@ -335,6 +335,51 @@ namespace NadekoBot.Migrations
                     b.ToTable("Blacklist");
                 });
 
+            modelBuilder.Entity("NadekoBot.Db.Models.ButtonRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ButtonId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<ulong>("ChannelId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Emote")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<ulong>("GuildId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<ulong>("MessageId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("RoleId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("RoleId", "MessageId");
+
+                    b.HasIndex("GuildId");
+
+                    b.ToTable("ButtonRole");
+                });
+
             modelBuilder.Entity("NadekoBot.Db.Models.ClubApplicants", b =>
                 {
                     b.Property<int>("ClubId")
@@ -892,6 +937,35 @@ namespace NadekoBot.Migrations
                         .IsUnique();
 
                     b.ToTable("GiveawayUser");
+                });
+
+            modelBuilder.Entity("NadekoBot.Db.Models.GuildColors", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ErrorColor")
+                        .HasMaxLength(9)
+                        .HasColumnType("TEXT");
+
+                    b.Property<ulong>("GuildId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("OkColor")
+                        .HasMaxLength(9)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PendingColor")
+                        .HasMaxLength(9)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GuildId")
+                        .IsUnique();
+
+                    b.ToTable("GuildColors");
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.GuildConfig", b =>
