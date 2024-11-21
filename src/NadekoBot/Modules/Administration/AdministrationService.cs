@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NadekoBot.Db.Models;
 using NadekoBot.Modules.Administration._common.results;
 
-namespace NadekoBot.Modules.Administration.Services;
+namespace NadekoBot.Modules.Administration;
 
 public class AdministrationService : INService
 {

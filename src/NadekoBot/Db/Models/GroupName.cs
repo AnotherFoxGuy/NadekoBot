@@ -1,11 +1,18 @@
-#nullable disable
+using System.ComponentModel.DataAnnotations;
+
 namespace NadekoBot.Db.Models;
 
-public class GroupName : DbEntity
+public sealed class SarGroup
 {
-    public int GuildConfigId { get; set; }
-    public GuildConfig GuildConfig { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-    public int Number { get; set; }
-    public string Name { get; set; }
+    public int GroupNumber { get; set; }
+    public ulong GuildId { get; set; }
+    public ulong? RoleReq { get; set; }
+    public ICollection<Sar> Roles { get; set; } = [];
+    public bool IsExclusive { get; set; }
+    
+    [MaxLength(100)]
+    public string? Name { get; set; }
 }

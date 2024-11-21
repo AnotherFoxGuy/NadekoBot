@@ -11,8 +11,6 @@ namespace NadekoBot.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            MigrationQueries.UpdateUsernames(migrationBuilder);
-            
             migrationBuilder.DropColumn(
                 name: "Discriminator",
                 table: "DiscordUser");

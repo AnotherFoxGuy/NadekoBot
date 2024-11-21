@@ -39,6 +39,7 @@ public partial class Gambling : GamblingModule<GamblingService>
     private readonly GamblingTxTracker _gamblingTxTracker;
     private readonly IPatronageService _ps;
     private readonly RakebackService _rb;
+    private readonly IBotCache _cache;
 
     public Gambling(
         IGamblingService gs,
@@ -52,7 +53,8 @@ public partial class Gambling : GamblingModule<GamblingService>
         IRemindService remind,
         IPatronageService patronage,
         GamblingTxTracker gamblingTxTracker,
-        RakebackService rb)
+        RakebackService rb,
+        IBotCache cache)
         : base(configService)
     {
         _gs = gs;
@@ -63,6 +65,7 @@ public partial class Gambling : GamblingModule<GamblingService>
         _remind = remind;
         _gamblingTxTracker = gamblingTxTracker;
         _rb = rb;
+        _cache = cache;
         _ps = patronage;
         _rng = new NadekoRandom();
 
@@ -152,40 +155,10 @@ public partial class Gambling : GamblingModule<GamblingService>
         }
         else if (Config.Timely.ProtType == TimelyProt.Captcha)
         {
-            var password = _service.GeneratePassword();
-
-            var img = new Image<Rgba32>(70, 35);
-
-            var font = _fonts.NotoSans.CreateFont(30);
-            var outlinePen = new SolidPen(Color.Black, 1f);
-            var strikeoutRun = new RichTextRun
-            {
-                Start = 0,
-                End = password.GetGraphemeCount(),
-                Font = font,
-                StrikeoutPen = new SolidPen(Color.White, 3),
-                TextDecorations = TextDecorations.Strikeout
-            };
-            // draw password on the image
-            img.Mutate(x =>
-            {
-                x.DrawText(new RichTextOptions(font)
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        FallbackFontFamilies = _fonts.FallBackFonts,
-                        Origin = new(35, 17),
-                        TextRuns = [strikeoutRun]
-                    },
-                    password,
-                    Brushes.Solid(Color.White),
-                    outlinePen);
-            });
+            var password = await GetUserTimelyPassword(ctx.User.Id);
+            var img = GetPasswordImage(password);
             using var stream = await img.ToStreamAsync();
             var captcha = await Response()
-                                // .Embed(_sender.CreateEmbed()
-                                //               .WithOkColor()
-                                //               .WithImageUrl("attachment://timely.png"))
                                 .File(stream, "timely.png")
                                 .SendAsync();
             try
@@ -195,6 +168,8 @@ public partial class Gambling : GamblingModule<GamblingService>
                 {
                     return;
                 }
+
+                await ClearUserTimelyPassword(ctx.User.Id);
             }
             finally
             {
@@ -203,6 +178,57 @@ public partial class Gambling : GamblingModule<GamblingService>
         }
 
         await ClaimTimely();
+    }
+
+    private static TypedKey<string> TimelyPasswordKey(ulong userId)
+        => new($"timely_password:{userId}");
+
+    private async Task<string> GetUserTimelyPassword(ulong userId)
+    {
+        var pw = await _cache.GetOrAddAsync(TimelyPasswordKey(userId),
+            () =>
+            {
+                var password = _service.GeneratePassword();
+                return Task.FromResult(password);
+            });
+
+        return pw;
+    }
+
+    private ValueTask<bool> ClearUserTimelyPassword(ulong userId)
+        => _cache.RemoveAsync(TimelyPasswordKey(userId));
+
+    private Image<Rgba32> GetPasswordImage(string password)
+    {
+        var img = new Image<Rgba32>(50, 24);
+
+        var font = _fonts.NotoSans.CreateFont(22);
+        var outlinePen = new SolidPen(Color.Black, 0.5f);
+        var strikeoutRun = new RichTextRun
+        {
+            Start = 0,
+            End = password.GetGraphemeCount(),
+            Font = font,
+            StrikeoutPen = new SolidPen(Color.White, 4),
+            TextDecorations = TextDecorations.Strikeout
+        };
+        // draw password on the image
+        img.Mutate(x =>
+        {
+            x.DrawText(new RichTextOptions(font)
+                {
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FallbackFontFamilies = _fonts.FallBackFonts,
+                    Origin = new(25, 12),
+                    TextRuns = [strikeoutRun]
+                },
+                password,
+                Brushes.Solid(Color.White),
+                outlinePen);
+        });
+
+        return img;
     }
 
     private async Task ClaimTimely()
@@ -384,11 +410,11 @@ public partial class Gambling : GamblingModule<GamblingService>
             trs = await uow.Set<CurrencyTransaction>().GetPageFor(userId, page);
         }
 
-        var embed = _sender.CreateEmbed()
-                           .WithTitle(GetText(strs.transactions(
-                               ((SocketGuild)ctx.Guild)?.GetUser(userId)?.ToString()
-                               ?? $"{userId}")))
-                           .WithOkColor();
+        var embed = CreateEmbed()
+                    .WithTitle(GetText(strs.transactions(
+                        ((SocketGuild)ctx.Guild)?.GetUser(userId)?.ToString()
+                        ?? $"{userId}")))
+                    .WithOkColor();
 
         var sb = new StringBuilder();
         foreach (var tr in trs)
@@ -435,7 +461,7 @@ public partial class Gambling : GamblingModule<GamblingService>
             return;
         }
 
-        var eb = _sender.CreateEmbed().WithOkColor();
+        var eb = CreateEmbed().WithOkColor();
 
         eb.WithAuthor(ctx.User);
         eb.WithTitle(GetText(strs.transaction));
@@ -699,11 +725,11 @@ public partial class Gambling : GamblingModule<GamblingService>
             str = GetText(strs.better_luck);
         }
 
-        var eb = _sender.CreateEmbed()
-                        .WithAuthor(ctx.User)
-                        .WithDescription(Format.Bold(str))
-                        .AddField(GetText(strs.roll2), result.Roll.ToString(CultureInfo.InvariantCulture))
-                        .WithOkColor();
+        var eb = CreateEmbed()
+                 .WithAuthor(ctx.User)
+                 .WithDescription(Format.Bold(str))
+                 .AddField(GetText(strs.roll2), result.Roll.ToString(CultureInfo.InvariantCulture))
+                 .WithOkColor();
 
         await Response().Embed(eb).SendAsync();
     }
@@ -766,9 +792,9 @@ public partial class Gambling : GamblingModule<GamblingService>
               .CurrentPage(page)
               .Page((toSend, curPage) =>
               {
-                  var embed = _sender.CreateEmbed()
-                                     .WithOkColor()
-                                     .WithTitle(CurrencySign + " " + GetText(strs.leaderboard));
+                  var embed = CreateEmbed()
+                              .WithOkColor()
+                              .WithTitle(CurrencySign + " " + GetText(strs.leaderboard));
 
                   if (!toSend.Any())
                   {
@@ -829,7 +855,7 @@ public partial class Gambling : GamblingModule<GamblingService>
             return;
         }
 
-        var embed = _sender.CreateEmbed();
+        var embed = CreateEmbed();
 
         string msg;
         if (result.Result == RpsResultType.Draw)
@@ -893,12 +919,12 @@ public partial class Gambling : GamblingModule<GamblingService>
             sb.AppendLine();
         }
 
-        var eb = _sender.CreateEmbed()
-                        .WithOkColor()
-                        .WithDescription(sb.ToString())
-                        .AddField(GetText(strs.multiplier), $"{result.Multiplier:0.##}x", true)
-                        .AddField(GetText(strs.won), $"{(long)result.Won}", true)
-                        .WithAuthor(ctx.User);
+        var eb = CreateEmbed()
+                 .WithOkColor()
+                 .WithDescription(sb.ToString())
+                 .AddField(GetText(strs.multiplier), $"{result.Multiplier:0.##}x", true)
+                 .AddField(GetText(strs.won), $"{(long)result.Won}", true)
+                 .WithAuthor(ctx.User);
 
 
         await Response().Embed(eb).SendAsync();

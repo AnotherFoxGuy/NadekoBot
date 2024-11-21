@@ -491,7 +491,7 @@ public sealed class StreamNotificationService : INService, IReadyExecutor
 
     public EmbedBuilder GetEmbed(ulong guildId, StreamData status, bool showViewers = true)
     {
-        var embed = _sender.CreateEmbed()
+        var embed = _sender.CreateEmbed(guildId)
                            .WithTitle(status.Name)
                            .WithUrl(status.StreamUrl)
                            .WithDescription(status.StreamUrl)
