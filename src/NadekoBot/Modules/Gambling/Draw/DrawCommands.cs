@@ -57,7 +57,7 @@ public partial class Gambling
                 i.Dispose();
 
             var eb = CreateEmbed()
-                            .WithOkColor();
+                .WithOkColor();
 
             var toSend = string.Empty;
             if (cardObjects.Count == 5)
@@ -172,13 +172,14 @@ public partial class Gambling
             }
 
             var eb = CreateEmbed()
-                            .WithOkColor()
-                            .WithAuthor(ctx.User)
-                            .WithDescription(result.Card.GetEmoji())
-                            .AddField(GetText(strs.guess), GetGuessInfo(val, col), true)
-                            .AddField(GetText(strs.card), GetCardInfo(result.Card), true)
-                            .AddField(GetText(strs.won), N((long)result.Won), false)
-                            .WithImageUrl("attachment://card.png");
+                     .WithOkColor()
+                     .WithAuthor(ctx.User)
+                     .WithDescription(result.Card.GetEmoji())
+                     .AddField(GetText(strs.guess), GetGuessInfo(val, col), true)
+                     .AddField(GetText(strs.card), GetCardInfo(result.Card), false)
+                     .AddField(GetText(strs.bet), N(amount), true)
+                     .AddField(GetText(strs.won), N((long)result.Won), true)
+                     .WithImageUrl("attachment://card.png");
 
             using var img = await GetCardImageAsync(result.Card);
             await using var imgStream = await img.ToStreamAsync();

@@ -11,8 +11,8 @@ using NadekoBot.Db;
 namespace NadekoBot.Migrations
 {
     [DbContext(typeof(SqliteContext))]
-    [Migration("20241119135908_guildcolors")]
-    partial class guildcolors
+    [Migration("20241126033626_btnroles_guildcolors")]
+    partial class btnroles_guildcolors
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -356,6 +356,9 @@ namespace NadekoBot.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("Exclusive")
+                        .HasColumnType("INTEGER");
 
                     b.Property<ulong>("GuildId")
                         .HasColumnType("INTEGER");

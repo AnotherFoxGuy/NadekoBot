@@ -1,4 +1,5 @@
-﻿using NadekoBot.Db.Models;
+﻿using NadekoBot.Common.TypeReaders.Models;
+using NadekoBot.Db.Models;
 using NadekoBot.Modules.Administration.Services;
 using System.Text;
 using ContextType = Discord.Commands.ContextType;
@@ -7,6 +8,7 @@ namespace NadekoBot.Modules.Administration;
 
 public partial class Administration
 {
+    [Group("btr")]
     public partial class ButtonRoleCommands : NadekoModule<ButtonRolesService>
     {
         private List<ActionRowBuilder> GetActionRows(IReadOnlyList<ButtonRole> roles)
@@ -228,7 +230,7 @@ public partial class Administration
                       {
                           eb.WithPendingColor()
                             .WithDescription(GetText(strs.btnrole_none));
-                          
+
                           return eb;
                       }
 
@@ -264,6 +266,31 @@ public partial class Administration
                       return eb;
                   })
                   .SendAsync();
+        }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        [BotPerm(GuildPerm.ManageRoles)]
+        [RequireUserPermission(GuildPerm.ManageRoles)]
+        public Task BtnRoleExclusive(MessageLink link, PermissionAction exclusive)
+            => BtnRoleExclusive(link.Message.Id, exclusive);
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        [BotPerm(GuildPerm.ManageRoles)]
+        [RequireUserPermission(GuildPerm.ManageRoles)]
+        public async Task BtnRoleExclusive(ulong messageId, PermissionAction exclusive)
+        {
+            var res = await _service.SetExclusiveButtonRoles(ctx.Guild.Id, messageId, exclusive.Value);
+
+            if (res)
+            {
+                await Response().Confirm(strs.btnrole_exclusive).SendAsync();
+            }
+            else
+            {
+                await Response().Confirm(strs.btnrole_multiple).SendAsync();
+            }
         }
     }
 }

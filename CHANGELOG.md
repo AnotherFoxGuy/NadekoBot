@@ -12,6 +12,7 @@ Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except da
   - `.btr list` to list all button roles on the server
   - `.btr rm` to remove a button role from the specified message
   - `.btr rma` to remove all button roles on the specified message
+  - `.btr excl` to toggle exclusive button roles (only 1 role per message or any number)
   - Use `.h` on any of the above for more info
 - Added `.wrongsong` which will delete the last queued song.
   - Useful in case you made a mistake, or the bot queued a wrong song

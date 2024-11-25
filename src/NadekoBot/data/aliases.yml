@@ -1499,18 +1499,22 @@ snipe:
   - snipe
   - sn
 btnroleadd:
-  - btnradd
-  - btnra
+  - add 
+  - a
 btnroleremove:
-  - btnrrem
-  - btnrr
-  - btnrrm
+  - rem 
+  - r
+  - rm 
 btnroleremoveall:
-  - btnrremall
-  - btnrra
+  - removeall 
+  - rma
 btnrolelist:
-  - btnrlist
-  - btnrl
+  - list
+  - l
+  - ls
+btnroleexclusive:
+  - excl
+  - e
 wrongsong:
   - wrongsong
   - wrongtrack

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NadekoBot.Migrations.PostgreSql
 {
     [DbContext(typeof(PostgreSqlContext))]
-    [Migration("20241119135917_guildcolors")]
-    partial class guildcolors
+    [Migration("20241126033634_btnroles_guildcolors")]
+    partial class btnroles_guildcolors
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -478,6 +478,10 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("emote");
+
+                    b.Property<bool>("Exclusive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("exclusive");
 
                     b.Property<decimal>("GuildId")
                         .HasColumnType("numeric(20,0)")

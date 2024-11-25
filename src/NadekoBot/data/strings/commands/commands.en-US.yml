@@ -4769,6 +4769,19 @@ btnrolelist:
     - ''
   params:
     - { }
+btnroleexclusive:
+  desc: |-
+    Toggles whether button roles are exclusive or not.
+    If enabled, users can only pick one role from the buttons per message.
+    If disabled, users can pick any number of roles.
+  ex:
+    - '123123123 enable'
+    - '123123123 disable'
+  params:
+    - message:
+        desc: "A message link or id of the message"
+      enable:
+        desc: "Whether to enable or disable exclusive button roles"
 wrongsong:
   desc: |-
     Removes the last queued song.

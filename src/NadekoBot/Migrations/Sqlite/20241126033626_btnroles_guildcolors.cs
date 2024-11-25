@@ -5,7 +5,7 @@
 namespace NadekoBot.Migrations
 {
     /// <inheritdoc />
-    public partial class guildcolors : Migration
+    public partial class btnroles_guildcolors : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,7 +23,8 @@ namespace NadekoBot.Migrations
                     Position = table.Column<int>(type: "INTEGER", nullable: false),
                     RoleId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     Emote = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Label = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
+                    Label = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Exclusive = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

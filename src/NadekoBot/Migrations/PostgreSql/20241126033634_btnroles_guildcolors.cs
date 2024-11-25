@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NadekoBot.Migrations.PostgreSql
 {
     /// <inheritdoc />
-    public partial class guildcolors : Migration
+    public partial class btnroles_guildcolors : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,7 +24,8 @@ namespace NadekoBot.Migrations.PostgreSql
                     position = table.Column<int>(type: "integer", nullable: false),
                     roleid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
                     emote = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    label = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
+                    label = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    exclusive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {

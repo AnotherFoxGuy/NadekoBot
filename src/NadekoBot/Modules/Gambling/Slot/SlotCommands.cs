@@ -66,10 +66,10 @@ public partial class Gambling
 
 
             var eb = CreateEmbed()
-                            .WithAuthor(ctx.User)
-                            .WithDescription(Format.Bold(text))
-                            .WithImageUrl($"attachment://result.png")
-                            .WithOkColor();
+                     .WithAuthor(ctx.User)
+                     .WithDescription(Format.Bold(text))
+                     .WithImageUrl($"attachment://result.png")
+                     .WithOkColor();
 
             var bb = new ButtonBuilder(emote: Emoji.Parse("🔁"), customId: "slot:again", label: "Pull Again");
             var inter = _inter.Create(ctx.User.Id,
@@ -168,7 +168,8 @@ public partial class Gambling
             await using (var uow = _db.GetDbContext())
             {
                 ownedAmount = uow.Set<DiscordUser>()
-                                 .FirstOrDefault(x => x.UserId == ctx.User.Id)?.CurrencyAmount
+                                 .FirstOrDefault(x => x.UserId == ctx.User.Id)
+                                 ?.CurrencyAmount
                               ?? 0;
             }
 

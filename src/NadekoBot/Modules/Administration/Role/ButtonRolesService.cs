@@ -42,32 +42,49 @@ public sealed class ButtonRolesService : INService, IReadyExecutor
 
         _ = Task.Run(async () =>
         {
-            await using var uow = _db.GetDbContext();
-            var buttonRole = await uow.GetTable<ButtonRole>()
-                                      .Where(x => x.ButtonId == smc.Data.CustomId && x.MessageId == smc.Message.Id)
-                                      .FirstOrDefaultAsyncLinqToDB();
-
-            if (buttonRole is null)
-                return;
-
-            var guild = _client.GetGuild(buttonRole.GuildId);
-            if (guild is null)
-                return;
-
-            var role = guild.GetRole(buttonRole.RoleId);
-            if (role is null)
-                return;
-
-            if (smc.User is not IGuildUser user)
-                return;
-
-            if (user.GetRoles().Any(x => x.Id == role.Id))
+            try
             {
-                await user.RemoveRoleAsync(role.Id);
-                return;
-            }
+                await using var uow = _db.GetDbContext();
+                var buttonRole = await uow.GetTable<ButtonRole>()
+                                          .Where(x => x.ButtonId == smc.Data.CustomId && x.MessageId == smc.Message.Id)
+                                          .FirstOrDefaultAsyncLinqToDB();
 
-            await user.AddRoleAsync(role.Id);
+                if (buttonRole is null)
+                    return;
+
+                var guild = _client.GetGuild(buttonRole.GuildId);
+                if (guild is null)
+                    return;
+
+                var role = guild.GetRole(buttonRole.RoleId);
+                if (role is null)
+                    return;
+
+                if (smc.User is not IGuildUser user)
+                    return;
+
+                if (user.GetRoles().Any(x => x.Id == role.Id))
+                {
+                    await user.RemoveRoleAsync(role.Id);
+                    return;
+                }
+
+                if (buttonRole.Exclusive)
+                {
+                    var otherRoles = await uow.GetTable<ButtonRole>()
+                                              .Where(x => x.GuildId == smc.GuildId && x.MessageId == smc.Message.Id)
+                                              .Select(x => x.RoleId)
+                                              .ToListAsyncLinqToDB();
+
+                    await user.RemoveRolesAsync(otherRoles);
+                }
+
+                await user.AddRoleAsync(role.Id);
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, "Unable to handle button role interaction for user {UserId}", inter.User.Id);
+            }
         });
     }
 
@@ -108,7 +125,8 @@ public sealed class ButtonRolesService : INService, IReadyExecutor
                                  : 1,
                          Emote = emoteStr,
                          Label = string.Empty,
-                         ButtonId = $"{BTN_PREFIX}:{guildId}:{guid}"
+                         ButtonId = $"{BTN_PREFIX}:{guildId}:{guid}",
+                         Exclusive = (uow.GetTable<ButtonRole>().Where(x => x.GuildId == guildId && x.MessageId == messageId).All(x => x.Exclusive))
                      },
                      _ => new()
                      {
@@ -150,5 +168,17 @@ public sealed class ButtonRolesService : INService, IReadyExecutor
                         .Where(x => x.GuildId == guildId && (messageId == null || x.MessageId == messageId))
                         .OrderBy(x => x.Id)
                         .ToListAsyncLinqToDB();
+    }
+
+    public async Task<bool> SetExclusiveButtonRoles(ulong guildId, ulong messageId, bool exclusive)
+    {
+        await using var uow = _db.GetDbContext();
+        return await uow.GetTable<ButtonRole>()
+                        .Where(x => x.GuildId == guildId && x.MessageId == messageId)
+                        .UpdateAsync((_) => new()
+                        {
+                            Exclusive = exclusive
+                        })
+               > 0;
     }
 }

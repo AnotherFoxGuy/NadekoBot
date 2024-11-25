@@ -718,7 +718,7 @@ public partial class Gambling : GamblingModule<GamblingService>
         string str;
         if (win > 0)
         {
-            str = GetText(strs.br_win(N(win), result.Threshold + (result.Roll == 100 ? " 👑" : "")));
+            str = GetText(strs.betroll_win(result.Threshold + (result.Roll == 100 ? " 👑" : "")));
         }
         else
         {
@@ -728,7 +728,9 @@ public partial class Gambling : GamblingModule<GamblingService>
         var eb = CreateEmbed()
                  .WithAuthor(ctx.User)
                  .WithDescription(Format.Bold(str))
-                 .AddField(GetText(strs.roll2), result.Roll.ToString(CultureInfo.InvariantCulture))
+                 .AddField(GetText(strs.roll2), result.Roll.ToString(CultureInfo.InvariantCulture), true)
+                 .AddField(GetText(strs.bet), N(amount), true)
+                 .AddField(GetText(strs.won), N((long)result.Won), true)
                  .WithOkColor();
 
         await Response().Embed(eb).SendAsync();
@@ -922,8 +924,8 @@ public partial class Gambling : GamblingModule<GamblingService>
         var eb = CreateEmbed()
                  .WithOkColor()
                  .WithDescription(sb.ToString())
-                 .AddField(GetText(strs.multiplier), $"{result.Multiplier:0.##}x", true)
-                 .AddField(GetText(strs.won), $"{(long)result.Won}", true)
+                 .AddField(GetText(strs.bet), N(amount), true)
+                 .AddField(GetText(strs.won), $"{N((long)result.Won)}", true)
                  .WithAuthor(ctx.User);
 
 

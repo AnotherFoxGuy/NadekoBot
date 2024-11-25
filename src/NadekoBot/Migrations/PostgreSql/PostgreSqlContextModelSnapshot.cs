@@ -476,6 +476,10 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasColumnType("character varying(100)")
                         .HasColumnName("emote");
 
+                    b.Property<bool>("Exclusive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("exclusive");
+
                     b.Property<decimal>("GuildId")
                         .HasColumnType("numeric(20,0)")
                         .HasColumnName("guildid");

@@ -22,4 +22,6 @@ public sealed class ButtonRole
 
     [MaxLength(50)]
     public string Label { get; set; } = string.Empty;
+
+    public bool Exclusive { get; set; }
 }

@@ -354,6 +354,9 @@ namespace NadekoBot.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("Exclusive")
+                        .HasColumnType("INTEGER");
+
                     b.Property<ulong>("GuildId")
                         .HasColumnType("INTEGER");
 
