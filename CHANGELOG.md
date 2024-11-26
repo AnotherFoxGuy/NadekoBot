@@ -2,6 +2,12 @@
 
 Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except date format. a-c-f-r-o
 
+## [5.2.1] - 26.11.2024
+
+### Fixed
+
+- Fixed old .sar missing
+
 ## [5.2.0] - 26.11.2024
 
 ### Added
