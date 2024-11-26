@@ -2,7 +2,7 @@
 
 Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except date format. a-c-f-r-o
 
-## [5.2.0] - 20.11.2024
+## [5.2.0] - 26.11.2024
 
 ### Added
 
@@ -13,7 +13,7 @@ Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except da
   - `.btr rm` to remove a button role from the specified message
   - `.btr rma` to remove all button roles on the specified message
   - `.btr excl` to toggle exclusive button roles (only 1 role per message or any number)
-  - Use `.h` on any of the above for more info
+  - Use `.h btr` for more info
 - Added `.wrongsong` which will delete the last queued song.
   - Useful in case you made a mistake, or the bot queued a wrong song
   - It will reset after a shuffle or fairplay toggle, or similar events.

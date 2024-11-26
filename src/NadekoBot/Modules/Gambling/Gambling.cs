@@ -390,6 +390,12 @@ public partial class Gambling : GamblingModule<GamblingService>
     [Priority(0)]
     public Task CurrencyTransactions([Leftover] IUser usr)
         => InternalCurrencyTransactions(usr.Id, 1);
+    
+    [Cmd]
+    [OwnerOnly]
+    [Priority(-1)]
+    public Task CurrencyTransactions([Leftover] ulong userId)
+        => InternalCurrencyTransactions(userId, 1);
 
     [Cmd]
     [OwnerOnly]
