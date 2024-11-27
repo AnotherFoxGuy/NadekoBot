@@ -2,11 +2,23 @@
 
 Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except date format. a-c-f-r-o
 
+## [5.2.2] - 27.11.2024
+
+### Changed
+
+- Button roles are now non-exclusive by default
+
+### Fixed
+
+- Fixed sar migration, again (this time correctly)
+- Fixed `.sclr` not updating unless bot is restarted, the changes should be immediate now for warn and error
+- Fixed group buttons exclusivity message always saying groups are exclusive
+
 ## [5.2.1] - 26.11.2024
 
 ### Fixed
 
-- Fixed old .sar missing
+- Fixed old self assigned missing
 
 ## [5.2.0] - 26.11.2024
 
