@@ -19,7 +19,6 @@ public abstract class NadekoModule : ModuleBase
     public INadekoInteractionService _inter { get; set; }
     public IReplacementService repSvc { get; set; }
     public IMessageSenderService _sender { get; set; }
-    public BotConfigService _bcs { get; set; }
 
     protected string prefix
         => _cmdHandler.GetPrefix(ctx.Guild);
@@ -31,7 +30,7 @@ public abstract class NadekoModule : ModuleBase
         => _sender.CreateEmbed(ctx.Guild?.Id);
     
     public ResponseBuilder Response()
-        => new ResponseBuilder(Strings, _bcs, (DiscordSocketClient)ctx.Client)
+        => new ResponseBuilder(Strings, _sender, (DiscordSocketClient)ctx.Client)
             .Context(ctx);
 
     protected override void BeforeExecute(CommandInfo command)
