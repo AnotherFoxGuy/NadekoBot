@@ -2,6 +2,13 @@
 
 Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except date format. a-c-f-r-o
 
+## [5.2.4] - 27.11.2024
+
+## Fixed
+
+- More fixes for .sclr
+- `.iamn` fixed
+
 ## [5.2.3] - 27.11.2024
 
 ## Fixed
