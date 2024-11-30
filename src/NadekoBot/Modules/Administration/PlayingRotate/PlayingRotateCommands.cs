@@ -6,7 +6,7 @@ namespace NadekoBot.Modules.Administration;
 public partial class Administration
 {
     [Group]
-    public partial class PlayingRotateCommands : NadekoModule<PlayingRotateService>
+    public partial class PlayingRotateCommands : NadekoModule<IBotActivityService>
     {
         [Cmd]
         [OwnerOnly]
