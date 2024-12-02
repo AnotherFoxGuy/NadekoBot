@@ -65,7 +65,17 @@ public sealed class MusicPlayer : IMusicPlayer
 
         _songBuffer = new PoopyBufferImmortalized(_vc.InputLength);
 
-        _thread = new(async () => { await PlayLoop(); });
+        _thread = new(async () =>
+        {
+            try
+            {
+                await PlayLoop();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Music player thread crashed");
+            }
+        });
         _thread.Start();
     }
 
@@ -402,12 +412,24 @@ public sealed class MusicPlayer : IMusicPlayer
         if (song is null)
             return default;
 
-        int index;
 
-        if (asNext)
-            return (_queue.EnqueueNext(song, queuer, out index), index);
+        var wasLast = _queue.IsLast();
 
-        return (_queue.Enqueue(song, queuer, out index), index);
+        try
+        {
+            int index;
+            if (asNext)
+                return (_queue.EnqueueNext(song, queuer, out index), index);
+
+            return (_queue.Enqueue(song, queuer, out index), index);
+        }
+        finally
+        {
+            // if (wasLast && IsStopped)
+            // {
+            //     IsStopped = false;
+            // }
+        }
     }
 
     public async Task EnqueueManyAsync(IEnumerable<(string Query, MusicPlatform Platform)> queries, string queuer)
