@@ -1542,3 +1542,8 @@ servercolorpending:
   - warn
   - warning
   - pend
+minesweeper:
+  - minesweeper
+  - mw
+temprole:
+  - temprole
