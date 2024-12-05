@@ -1,4 +1,4 @@
-﻿namespace NadekoBot.Db.Models;
+namespace NadekoBot.Db.Models;
 
 public enum XpNotificationLocation
 {

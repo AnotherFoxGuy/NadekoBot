@@ -1356,6 +1356,33 @@ namespace NadekoBot.Migrations
                     b.ToTable("Expressions");
                 });
 
+            modelBuilder.Entity("NadekoBot.Db.Models.Notify", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("ChannelId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("GuildId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(10000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("GuildId", "Type");
+
+                    b.ToTable("Notify");
+                });
+
             modelBuilder.Entity("NadekoBot.Db.Models.PatronUser", b =>
                 {
                     b.Property<ulong>("UserId")
@@ -2161,9 +2188,6 @@ namespace NadekoBot.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<ulong>("GuildId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("NotifyOnLevelUp")
                         .HasColumnType("INTEGER");
 
                     b.Property<ulong>("UserId")

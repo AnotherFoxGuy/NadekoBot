@@ -81,7 +81,7 @@ public abstract class NadekoContext : DbContext
             e.HasAlternateKey(x => new
             {
                 x.GuildId,
-                x.Event
+                Event = x.Type
             });
         });
 
