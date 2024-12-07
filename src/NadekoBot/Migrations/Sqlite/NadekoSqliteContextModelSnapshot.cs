@@ -2590,6 +2590,8 @@ namespace NadekoBot.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MaxWin");
+
                     b.HasIndex("UserId", "Game")
                         .IsUnique();
 

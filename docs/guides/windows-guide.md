@@ -1,11 +1,11 @@
 ## Setting Up NadekoBot on Windows With the Updater
 
 | Table of Contents|
-| :---------------------------------------------------------------------------------------------------------------------------|
-| [Prerequisites](#prerequisites)                                                                                             |
-| [Setup](#setup)                                                                                                             |
-| [Starting the Bot](#starting-the-bot)                                                                                       |
-| [Updating Nadeko](#updating-nadeko)                                                                                         |
+| :-|
+| [Prerequisites](#prerequisites) |
+| [Setup](#setup) |
+| [Starting the Bot](#starting-the-bot) |
+| [Updating Nadeko](#updating-nadeko) |
 | [Manually Installing the Prerequisites from the Updater](#music-prerequisites) |
 
 *Note: If you want to make changes to Nadeko's source code, please follow the [From Source](#windows-from-source) guide instead.*
@@ -13,7 +13,6 @@
 #### Prerequisites
 
 - Windows 10 or later (64-bit)
-- [Create a Discord Bot application and invite the bot to your server](../creds-guide.md)
 
 **Optional**
 
@@ -29,8 +28,7 @@
  ![Create a new bot](https://i.imgur.com/JxtRk9e.png "Create a new bot")
 - Click on **`DOWNLOAD`** at the lower right
  ![Bot Setup](https://i.imgur.com/HqAl36p.png "Bot Setup")
-- **Note: Redis is optional. install Redis manually here: [Redis] Download and run the **`.msi`** file.**
-- If you will use the music module, click on **`Install`** next to **`FFMPEG`** and **`Youtube-DLP`**.
+- If you want to use the music module, click on **`Install`** next to **`FFMPEG`** and **`Youtube-DLP`**.
 - If any dependencies fail to install, you can temporarily disable your Windows Defender/AV until you install them. If you don't want to, then read [the last section of this guide](#Manual-Prerequisite-Installation).
 - When installation is finished, click on **`CREDS`** to the left of **`RUN`** at the lower right.
 - Follow the guide on how to [Set up the creds.yml](../../creds-guide) file.
@@ -52,71 +50,6 @@
 - Launch the bot
 - You've updated and are running again, easy as that!
 
-#### Manual Prerequisite Installation
-
-You can still install them manually:
-
-- [Redis] (OPTIONAL) - Download and run the **`.msi`** file
-- [ffmpeg-32bit] | [ffmpeg-64bit] - Download the **appropriate version** for your system (32 bit if you're running a 32 bit OS, or 64 if you're running a 64bit OS). Unzip it, and move `ffmpeg.exe` to a path that's in your PATH environment variable. If you don't know what that is, then just move the `ffmpeg.exe` file to NadekoBot/system
-- [youtube-dlp] - Click to download the `yt-dlp.exe` file then put `yt-dlp.exe` in a path that's in your PATH environment variable. If you don't know what that is, then just move the `yt-dlp.exe` file to NadekoBot/system
-
-## **⚠ IF YOU ARE FOLLOWING THE GUIDE ABOVE, IGNORE THIS SECTION ⚠**
-
-### Windows From Source
-
-##### Prerequisites
-
-**Install these before proceeding or your bot will not work!**
-- [.net 8](https://dotnet.microsoft.com/en-us/download)  - needed to compile and run the bot
-- [git](https://git-scm.com/downloads) - needed to clone the repository (you can also download the zip manually and extract it, but this guide assumes you're using git)
-- [Redis] (OPTIONAL)- to cache things needed by some features and persist through restarts
-
-##### Installation Instructions
-
-Open PowerShell (press windows button on your keyboard and type powershell, it should show up; alternatively, right click the start menu and select Windows PowerShell), and navigate to the location where you want to install the bot (for example `cd ~/Desktop/`)
-
-1. `git clone https://gitlab.com/kwoth/nadekobot -b v5 --depth 1`
-2. `cd nadekobot`
-3. `dotnet publish -c Release -o output/ src/NadekoBot/`
-4. `cd output`
-5. `cp creds_example.yml creds.yml`
-6. Open `creds.yml` with your favorite text editor (Please don't use Notepad or WordPad. You can use Notepad++, VSCode, Atom, Sublime, or something similar)
-7. [Enter your bot's token](#creds-guide)
-8. Run the bot `dotnet NadekoBot.dll`
-9. 🎉
-
-##### Update Instructions
-
-Open PowerShell as described above and run the following commands:
-
-1. Stop the bot
-  - ⚠️ Make sure you don't have your database, credentials or any other nadekobot folder open in some application, this might prevent some of the steps from executing succesfully
-2. Navigate to your bot's folder, example:
-    - `cd ~/Desktop/nadekobot`
-3. Pull the new version, and make sure you're on the v5 branch
-    - *⚠️ the first 3 lines can be omitted if you're already on v5. If you're updating from v4, you must run them*
-        - `git remote set-branches origin '*'`
-        - `git fetch -v --depth=1`
-        - `git checkout v5`
-    - `git pull` 
-    - ⚠️ If this fails, you may want to stash or remove your code changes if you don't know how to resolve merge conflicts
-4. **Backup** old output in case your data is overwritten
-    - `cp -r -fo output/ output-old`
-5. Build the bot again
-    - `dotnet publish -c Release -o output/ src/NadekoBot/`
-6. Remove old strings and aliases to avoid overwriting the updated versions of those files
-    - ⚠ If you've modified said files, back them up instead
-    - `rm output-old/data/aliases.yml`
-    - `rm -r output-old/data/strings`
-7. Copy old data
-    - `cp -Recurse .\output-old\data\ .\output\ -Force`
-8. Copy creds.yml
-    - `cp output-old/creds.yml output/`
-9. Run the bot
-    - `cd output`
-    - `dotnet NadekoBot.dll`
-
-🎉 Enjoy
 
 #### Music prerequisites
 In order to use music commands, you need ffmpeg and yt-dlp installed.

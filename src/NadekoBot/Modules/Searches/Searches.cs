@@ -103,11 +103,11 @@ public partial class Searches : NadekoModule<SearchesService>
         }
 
         var eb = CreateEmbed()
-                        .WithOkColor()
-                        .WithTitle(GetText(strs.time_new))
-                        .WithDescription(Format.Code(data.Time.ToString(Culture)))
-                        .AddField(GetText(strs.location), string.Join('\n', data.Address.Split(", ")), true)
-                        .AddField(GetText(strs.timezone), data.TimeZoneName, true);
+                 .WithOkColor()
+                 .WithTitle(GetText(strs.time_new))
+                 .WithDescription(Format.Code(data.Time.ToString(Culture)))
+                 .AddField(GetText(strs.location), string.Join('\n', data.Address.Split(", ")), true)
+                 .AddField(GetText(strs.timezone), data.TimeZoneName, true);
 
         await Response().Embed(eb).SendAsync();
     }
@@ -129,16 +129,16 @@ public partial class Searches : NadekoModule<SearchesService>
 
         await Response()
               .Embed(CreateEmbed()
-                            .WithOkColor()
-                            .WithTitle(movie.Title)
-                            .WithUrl($"https://www.imdb.com/title/{movie.ImdbId}/")
-                            .WithDescription(movie.Plot.TrimTo(1000))
-                            .AddField("Rating", movie.ImdbRating, true)
-                            .AddField("Genre", movie.Genre, true)
-                            .AddField("Year", movie.Year, true)
-                            .WithImageUrl(Uri.IsWellFormedUriString(movie.Poster, UriKind.Absolute)
-                                ? movie.Poster
-                                : null))
+                     .WithOkColor()
+                     .WithTitle(movie.Title)
+                     .WithUrl($"https://www.imdb.com/title/{movie.ImdbId}/")
+                     .WithDescription(movie.Plot.TrimTo(1000))
+                     .AddField("Rating", movie.ImdbRating, true)
+                     .AddField("Genre", movie.Genre, true)
+                     .AddField("Year", movie.Year, true)
+                     .WithImageUrl(Uri.IsWellFormedUriString(movie.Poster, UriKind.Absolute)
+                         ? movie.Poster
+                         : null))
               .SendAsync();
     }
 
@@ -191,9 +191,9 @@ public partial class Searches : NadekoModule<SearchesService>
 
         await Response()
               .Embed(CreateEmbed()
-                            .WithOkColor()
-                            .AddField(GetText(strs.original_url), $"<{query}>")
-                            .AddField(GetText(strs.short_url), $"<{shortLink}>"))
+                     .WithOkColor()
+                     .AddField(GetText(strs.original_url), $"<{query}>")
+                     .AddField(GetText(strs.short_url), $"<{shortLink}>"))
               .SendAsync();
     }
 
@@ -214,13 +214,13 @@ public partial class Searches : NadekoModule<SearchesService>
         }
 
         var embed = CreateEmbed()
-                           .WithOkColor()
-                           .WithTitle(card.Name)
-                           .WithDescription(card.Description)
-                           .WithImageUrl(card.ImageUrl)
-                           .AddField(GetText(strs.store_url), card.StoreUrl, true)
-                           .AddField(GetText(strs.cost), card.ManaCost, true)
-                           .AddField(GetText(strs.types), card.Types, true);
+                    .WithOkColor()
+                    .WithTitle(card.Name)
+                    .WithDescription(card.Description)
+                    .WithImageUrl(card.ImageUrl)
+                    .AddField(GetText(strs.store_url), card.StoreUrl, true)
+                    .AddField(GetText(strs.cost), card.ManaCost, true)
+                    .AddField(GetText(strs.types), card.Types, true);
 
         await Response().Embed(embed).SendAsync();
     }
@@ -281,10 +281,10 @@ public partial class Searches : NadekoModule<SearchesService>
               {
                   var item = items[0];
                   return CreateEmbed()
-                                .WithOkColor()
-                                .WithUrl(item.Permalink)
-                                .WithTitle(item.Word)
-                                .WithDescription(item.Definition);
+                         .WithOkColor()
+                         .WithUrl(item.Permalink)
+                         .WithTitle(item.Word)
+                         .WithDescription(item.Definition);
               })
               .SendAsync();
     }
@@ -312,11 +312,11 @@ public partial class Searches : NadekoModule<SearchesService>
               {
                   var model = items.First();
                   var embed = CreateEmbed()
-                                     .WithDescription(ctx.User.Mention)
-                                     .AddField(GetText(strs.word), model.Word, true)
-                                     .AddField(GetText(strs._class), model.WordType, true)
-                                     .AddField(GetText(strs.definition), model.Definition)
-                                     .WithOkColor();
+                              .WithDescription(ctx.User.Mention)
+                              .AddField(GetText(strs.word), model.Word, true)
+                              .AddField(GetText(strs._class), model.WordType, true)
+                              .AddField(GetText(strs.definition), model.Definition)
+                              .WithOkColor();
 
                   if (!string.IsNullOrWhiteSpace(model.Example))
                       embed.AddField(GetText(strs.example), model.Example);
@@ -404,10 +404,28 @@ public partial class Searches : NadekoModule<SearchesService>
         await Response()
               .Embed(
                   CreateEmbed()
-                         .WithOkColor()
-                         .AddField("Username", usr.ToString())
-                         .AddField("Avatar Url", avatarUrl)
-                         .WithThumbnailUrl(avatarUrl.ToString()))
+                      .WithOkColor()
+                      .AddField("Username", usr.ToString())
+                      .AddField("Avatar Url", avatarUrl)
+                      .WithThumbnailUrl(avatarUrl.ToString()))
+              .SendAsync();
+    }
+
+    [Cmd]
+    [RequireContext(ContextType.Guild)]
+    public async Task Banner([Leftover] IGuildUser? usr = null)
+    {
+        usr ??= (IGuildUser)ctx.User;
+
+        var bannerUrl = usr.GetGuildBannerUrl();
+
+        await Response()
+              .Embed(
+                  CreateEmbed()
+                      .WithOkColor()
+                      .AddField("Username", usr.ToString())
+                      .AddField("Banner Url", bannerUrl)
+                      .WithThumbnailUrl(bannerUrl))
               .SendAsync();
     }
 

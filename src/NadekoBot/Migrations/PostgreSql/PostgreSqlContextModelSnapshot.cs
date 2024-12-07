@@ -3482,6 +3482,9 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.HasKey("Id")
                         .HasName("pk_userbetstats");
 
+                    b.HasIndex("MaxWin")
+                        .HasDatabaseName("ix_userbetstats_maxwin");
+
                     b.HasIndex("UserId", "Game")
                         .IsUnique()
                         .HasDatabaseName("ix_userbetstats_userid_game");
