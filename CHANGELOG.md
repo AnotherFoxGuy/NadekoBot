@@ -11,27 +11,30 @@ Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except da
 - Added `.xplevelset` - you can now set a level for a user in your server
 - Added `.winlb` command - leaderboard of top gambling wins
 - Added `.notify` command
-  - Specify an event to be notified about, and the bot will post the specified message in the current channel when the event occurs
-  - A few events supported right now: 
-    - `UserLevelUp` when user levels up in the server 
-    - `AddRoleReward` when a role is added to a user through .xpreward system
-    - `RemoveRoleReward` when a role is removed from a user through .xpreward system
-    - `Protection` when antialt, antiraid or antispam protection is triggered
+    - Specify an event to be notified about, and the bot will post the specified message in the current channel when the
+      event occurs
+    - A few events supported right now:
+        - `UserLevelUp` when user levels up in the server
+        - `AddRoleReward` when a role is added to a user through .xpreward system
+        - `RemoveRoleReward` when a role is removed from a user through .xpreward system
+        - `Protection` when antialt, antiraid or antispam protection is triggered
 - Added `.banner` command to see someone's banner
 - Selfhosters:
-  - Added `.dmmod` and `.dmcmd` - you can now disable or enable whether commands or modules can be executed in bot's DMs
+    - Added `.dmmod` and `.dmcmd` - you can now disable or enable whether commands or modules can be executed in bot's
+      DMs
 
 ## Changed
 
 - Giveaway improvements
-  - Now mentions winners in a separate message
-  - Shows the timestamp of when the giveaway ends
+    - Now mentions winners in a separate message
+    - Shows the timestamp of when the giveaway ends
 - Xp Changes
-  - Removed awarded xp (the number in the brackets on the xp card)
-  - Awarded xp, (or the new level set) now directly apply to user's real xp
-  - Server xp notifications are now set by the server admin/manager in a specified channel
+    - Removed awarded xp (the number in the brackets on the xp card)
+    - Awarded xp, (or the new level set) now directly apply to user's real xp
+    - Server xp notifications are now set by the server admin/manager in a specified channel
 - `.sclr show` will now show hex code of the current color
-- Queueing a song will now restart the playback if the queue is on the last track and stopped (there were no more tracks to play)
+- Queueing a song will now restart the playback if the queue is on the last track and stopped (there were no more tracks
+  to play)
 
 ## Fixed
 
@@ -39,6 +42,8 @@ Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except da
 
 ## Removed
 
+- `.xpnotify` command, superseded by `.notify`, although as of right now you can't post user's level up in the same
+  channel user last typed, because you have to specify a channel where the notify messages will be posted
 
 ## [5.2.4] - 27.11.2024
 
@@ -82,46 +87,49 @@ Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except da
 
 - Added `.todo undone` command to unmark a todo as done
 - Added Button Roles!
-  - `.btr a` to add a button role to the specified message
-  - `.btr list` to list all button roles on the server
-  - `.btr rm` to remove a button role from the specified message
-  - `.btr rma` to remove all button roles on the specified message
-  - `.btr excl` to toggle exclusive button roles (only 1 role per message or any number)
-  - Use `.h btr` for more info
+    - `.btr a` to add a button role to the specified message
+    - `.btr list` to list all button roles on the server
+    - `.btr rm` to remove a button role from the specified message
+    - `.btr rma` to remove all button roles on the specified message
+    - `.btr excl` to toggle exclusive button roles (only 1 role per message or any number)
+    - Use `.h btr` for more info
 - Added `.wrongsong` which will delete the last queued song.
-  - Useful in case you made a mistake, or the bot queued a wrong song
-  - It will reset after a shuffle or fairplay toggle, or similar events.
+    - Useful in case you made a mistake, or the bot queued a wrong song
+    - It will reset after a shuffle or fairplay toggle, or similar events.
 - Added Server color Commands!
-  - Every Server can now set their own colors for ok/error/pending embed (the default green/red/yellow color on the left side of the message the bot sends)
-  - Use `.h .sclr` to see the list of commands
-  - `.sclr show` will show the current server colors
-  - `.sclr ok <color hex>` to set ok color
-  - `.sclr warn <color hex>` to set warn color
-  - `.sclr error <color hex>` to set error color
+    - Every Server can now set their own colors for ok/error/pending embed (the default green/red/yellow color on the
+      left side of the message the bot sends)
+    - Use `.h .sclr` to see the list of commands
+    - `.sclr show` will show the current server colors
+    - `.sclr ok <color hex>` to set ok color
+    - `.sclr warn <color hex>` to set warn color
+    - `.sclr error <color hex>` to set error color
 
 ### Changed
 
 - Self Assigned Roles reworked! Use `.h .sar` for the list of commands
-  - `.sar autodel` 
-    - Toggles the automatic deletion of the user's message and Nadeko's confirmations for .iam and .iamn commands.
-  - `.sar ad` 
-    - Adds a role to the list of self-assignable roles. You can also specify a group. 
-    - If 'Exclusive self-assignable roles' feature is enabled (.sar exclusive), users will be able to pick one role per group.
-  - `.sar groupname` 
-    - Sets a self assignable role group name. Provide no name to remove.
-  - `.sar remove` 
-    - Removes a specified role from the list of self-assignable roles.
-  - `.sar list`
-    - Lists self-assignable roles. Shows 20 roles per page.
-  - `.sar exclusive`
-    - Toggles whether self-assigned roles are exclusive. While enabled, users can only have one self-assignable role per group.
-  - `.sar rolelvlreq`
-    - Set a level requirement on a self-assignable role.
-  - `.sar grouprolereq`
-    - Set a role that users have to have in order to assign a self-assignable role from the specified group.
-  - `.sar groupdelete`
-    - Deletes a self-assignable role group
-  - `.iam` and `.iamn` are unchanged
+    - `.sar autodel`
+        - Toggles the automatic deletion of the user's message and Nadeko's confirmations for .iam and .iamn commands.
+    - `.sar ad`
+        - Adds a role to the list of self-assignable roles. You can also specify a group.
+        - If 'Exclusive self-assignable roles' feature is enabled (.sar exclusive), users will be able to pick one role
+          per group.
+    - `.sar groupname`
+        - Sets a self assignable role group name. Provide no name to remove.
+    - `.sar remove`
+        - Removes a specified role from the list of self-assignable roles.
+    - `.sar list`
+        - Lists self-assignable roles. Shows 20 roles per page.
+    - `.sar exclusive`
+        - Toggles whether self-assigned roles are exclusive. While enabled, users can only have one self-assignable role
+          per group.
+    - `.sar rolelvlreq`
+        - Set a level requirement on a self-assignable role.
+    - `.sar grouprolereq`
+        - Set a role that users have to have in order to assign a self-assignable role from the specified group.
+    - `.sar groupdelete`
+        - Deletes a self-assignable role group
+    - `.iam` and `.iamn` are unchanged
 - Removed patron limits from Reaction Roles. Anyone can have as many reros as they like.
 - `.timely` captcha made stronger and cached per user.
 - `.bsreset` price reduced by 90%
@@ -135,9 +143,9 @@ Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except da
 ### Added
 
 - Added `.rakeback` command, get a % of house edge back as claimable currency
-- Added `.snipe` command to quickly get a copy of  a posted message as an embed
-  - You can reply to a message to snipe that message
-  - Or just type .snipe and the bot will snipe the last message in the channel with content or image
+- Added `.snipe` command to quickly get a copy of a posted message as an embed
+    - You can reply to a message to snipe that message
+    - Or just type .snipe and the bot will snipe the last message in the channel with content or image
 - Added `.betstatsreset` / `.bsreset` command to reset your stats for a fee
 - Added `.gamblestatsreset` / `.gsreset` owner-only command to reset bot stats for all games
 - Added `.waifuclaims` command which lists all of your claimed waifus
@@ -147,9 +155,9 @@ Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except da
 
 - `.divorce` no longer has a cooldown
 - `.betroll` has a 2% better payout
-- `.slot` payout balanced out (less volatile), reduced jackpot win but increased other wins, 
-  - now has a new symbol, wheat 
-  - worse around 1% in total (now shares the top spot with .bf)
+- `.slot` payout balanced out (less volatile), reduced jackpot win but increased other wins,
+    - now has a new symbol, wheat
+    - worse around 1% in total (now shares the top spot with .bf)
 
 ## [5.1.19] - 04.11.2024
 
@@ -168,7 +176,7 @@ Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except da
 
 - `.plant/pick` password font size will be slightly bigger
 - `.race` will now have 82-94% payout rate based on the number of players playing (1-12, x0.01 per player).
-  - Any player over 12 won't increase payout
+    - Any player over 12 won't increase payout
 
 ### Fixed
 
