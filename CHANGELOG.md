@@ -2,7 +2,7 @@
 
 Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except date format. a-c-f-r-o
 
-## [5.3.0] - 07.12.2024
+## [5.3.0] - 10.12.2024
 
 ## Added
 
@@ -35,10 +35,12 @@ Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except da
 - `.sclr show` will now show hex code of the current color
 - Queueing a song will now restart the playback if the queue is on the last track and stopped (there were no more tracks
   to play)
+- `.translate` will now use 2 embeds instead of 1
 
 ## Fixed
 
 - .setstream and .setactivity will now pause .ropl (rotating statuses)
+- Fixed `.sar ex` help description
 
 ## Removed
 
