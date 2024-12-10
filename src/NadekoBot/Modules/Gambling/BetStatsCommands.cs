@@ -149,6 +149,9 @@ public partial class Gambling
                                    ?? (await _userService.GetUserAsync(x.UserId))?.Username
                                    ?? x.UserId.ToString();
 
+                        if (user.StartsWith("??"))
+                            user = x.UserId.ToString();
+
                         outputItems.Add(new WinLbStat(i + 1 + (page * 10), user, x.Game, x.MaxWin));
                     }
 
