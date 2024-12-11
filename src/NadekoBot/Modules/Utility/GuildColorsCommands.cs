@@ -13,9 +13,9 @@ public partial class Utility
         public async Task ServerColorsShow()
         {
             var colors = _service.GetColors(ctx.Guild.Id);
-            var okHex = colors?.Ok?.RawValue.ToString("X8");
-            var warnHex = colors?.Warn?.RawValue.ToString("X8");
-            var errHex = colors?.Error?.RawValue.ToString("X8");
+            var okHex = colors?.Ok?.RawValue.ToString("x6");
+            var warnHex = colors?.Warn?.RawValue.ToString("x6");
+            var errHex = colors?.Error?.RawValue.ToString("x6");
             EmbedBuilder[] ebs =
             [
                 CreateEmbed()
