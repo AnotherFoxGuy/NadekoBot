@@ -419,13 +419,22 @@ public partial class Searches : NadekoModule<SearchesService>
 
         var bannerUrl = usr.GetGuildBannerUrl();
 
+        if (bannerUrl is null)
+        {
+            await Response()
+                  .Error(strs.no_banner)
+                  .SendAsync();
+
+            return;
+        }
+
         await Response()
               .Embed(
                   CreateEmbed()
                       .WithOkColor()
-                      .AddField("Username", usr.ToString())
-                      .AddField("Banner Url", bannerUrl)
-                      .WithThumbnailUrl(bannerUrl))
+                      .AddField("Username", usr.ToString(), true)
+                      .AddField("Banner Url", bannerUrl, true)
+                      .WithImageUrl(bannerUrl))
               .SendAsync();
     }
 
