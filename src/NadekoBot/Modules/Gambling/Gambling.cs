@@ -135,7 +135,6 @@ public partial class Gambling : GamblingModule<GamblingService>
                 });
 
     [Cmd]
-    [RequireContext(ContextType.Guild)]
     public async Task Timely()
     {
         var val = Config.Timely.Amount;
