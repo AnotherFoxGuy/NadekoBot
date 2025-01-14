@@ -74,6 +74,9 @@ public abstract class NadekoContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // load all entities from current assembly
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(NadekoContext).Assembly);
+        
         #region Notify
 
         modelBuilder.Entity<Notify>(e =>

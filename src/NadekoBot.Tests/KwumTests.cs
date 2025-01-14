@@ -1,4 +1,5 @@
-﻿using Nadeko.Common;
+﻿using System;
+using Nadeko.Common;
 using NUnit.Framework;
 
 namespace NadekoBot.Tests
@@ -119,6 +120,13 @@ namespace NadekoBot.Tests
             
             num = new kwum(int.MaxValue);
             Assert.AreEqual("3zzzzzz", num.ToString());
+        }
+
+        [Test]
+        public void TestPower()
+        {
+            var num = new kwum((int)Math.Pow(32, 2));
+            Assert.AreEqual("322", num.ToString());
         }
     }
 }

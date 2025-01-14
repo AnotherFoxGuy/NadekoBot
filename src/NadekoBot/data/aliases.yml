@@ -1560,3 +1560,16 @@ notifyclear:
 winlb:
   - winlb
   - wins
+fish:
+  - fish
+  - fi
+fishlist:
+  - fishlist
+  - fili
+  - fishes
+  - fil
+  - fishlist
+fishspot:
+  - fishspot 
+  - fisp
+  - fish?
