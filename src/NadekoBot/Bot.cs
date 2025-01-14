@@ -218,12 +218,12 @@ public sealed class Bot : IBot
         catch (HttpException ex)
         {
             LoginErrorHandler.Handle(ex);
-            Helpers.ReadErrorAndExit(3);
+            Helpers.ReadErrorAndExit(101);
         }
         catch (Exception ex)
         {
             LoginErrorHandler.Handle(ex);
-            Helpers.ReadErrorAndExit(4);
+            Helpers.ReadErrorAndExit(5);
         }
 
         await clientReady.Task.ConfigureAwait(false);
@@ -275,7 +275,7 @@ public sealed class Bot : IBot
         catch (Exception ex)
         {
             Log.Error(ex, "Error adding services");
-            Helpers.ReadErrorAndExit(9);
+            Helpers.ReadErrorAndExit(103);
         }
 
         Log.Information("Shard {ShardId} connected in {Elapsed:F2}s",
