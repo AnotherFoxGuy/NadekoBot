@@ -2,6 +2,13 @@
 
 Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except date format. a-c-f-r-o
 
+## [5.3.5] - 17.01.2025
+
+## Fixed
+
+- .sar rm will now accept role ids in case the role was deleted
+- `.deletewaifus` should work again
+
 ## [5.3.4] - 14.01.2025
 
 ## Added
