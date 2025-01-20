@@ -35,7 +35,7 @@ public partial class Games
 #if GLOBAL_NADEKO
                     if (_rng.Next(0, 5) == 0)
                         toSend = toSend
-                            .Confirm("[Sub on Patreon](https://patreon.com/nadekobot) to remove captcha.")
+                            .Confirm("[Sub on Patreon](https://patreon.com/nadekobot) to remove captcha.");
 #endif
                     var captcha = await toSend.SendAsync();
 
