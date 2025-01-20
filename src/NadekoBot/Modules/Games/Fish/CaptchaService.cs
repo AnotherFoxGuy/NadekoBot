@@ -1,4 +1,6 @@
-﻿using SixLabors.Fonts;
+﻿using NadekoBot.Db.Models;
+using NadekoBot.Modules.Patronage;
+using SixLabors.Fonts;
 using SixLabors.Fonts.Unicode;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
@@ -9,7 +11,7 @@ using Color = SixLabors.ImageSharp.Color;
 
 namespace NadekoBot.Modules.Games;
 
-public sealed class CaptchaService(FontProvider fonts) : INService
+public sealed class CaptchaService(FontProvider fonts, IBotCache cache, IPatronageService ps) : INService
 {
     private readonly NadekoRandom _rng = new();
 
@@ -53,4 +55,26 @@ public sealed class CaptchaService(FontProvider fonts) : INService
         var num = _rng.Next((int)Math.Pow(31, 2), (int)Math.Pow(32, 3));
         return new kwum(num).ToString();
     }
+
+    private static TypedKey<string> CaptchaPasswordKey(ulong userId)
+        => new($"timely_password:{userId}");
+
+    public async Task<string?> GetUserCaptcha(ulong userId)
+    {
+        var patron = await ps.GetPatronAsync(userId);
+        if (patron is Patron p && !p.ValidThru.IsBeforeToday())
+            return null;
+
+        var pw = await cache.GetOrAddAsync(CaptchaPasswordKey(userId),
+            () =>
+            {
+                var password = GeneratePassword();
+                return Task.FromResult(password)!;
+            });
+
+        return pw;
+    }
+
+    public ValueTask<bool> ClearUserCaptcha(ulong userId)
+        => cache.RemoveAsync(CaptchaPasswordKey(userId));
 }

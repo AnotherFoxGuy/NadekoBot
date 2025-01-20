@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Text;
 using NadekoBot.Modules.Gambling.Rps;
 using NadekoBot.Common.TypeReaders;
+using NadekoBot.Modules.Games;
 using NadekoBot.Modules.Patronage;
 using SixLabors.Fonts;
 using SixLabors.Fonts.Unicode;
@@ -40,6 +41,7 @@ public partial class Gambling : GamblingModule<GamblingService>
     private readonly IPatronageService _ps;
     private readonly RakebackService _rb;
     private readonly IBotCache _cache;
+    private readonly CaptchaService _captchaService;
 
     public Gambling(
         IGamblingService gs,
@@ -54,7 +56,8 @@ public partial class Gambling : GamblingModule<GamblingService>
         IPatronageService patronage,
         GamblingTxTracker gamblingTxTracker,
         RakebackService rb,
-        IBotCache cache)
+        IBotCache cache,
+        CaptchaService captchaService)
         : base(configService)
     {
         _gs = gs;
@@ -66,6 +69,7 @@ public partial class Gambling : GamblingModule<GamblingService>
         _gamblingTxTracker = gamblingTxTracker;
         _rb = rb;
         _cache = cache;
+        _captchaService = captchaService;
         _ps = patronage;
         _rng = new NadekoRandom();
 
@@ -154,48 +158,41 @@ public partial class Gambling : GamblingModule<GamblingService>
         }
         else if (Config.Timely.ProtType == TimelyProt.Captcha)
         {
-            var password = await GetUserTimelyPassword(ctx.User.Id);
-            var img = GetPasswordImage(password);
-            using var stream = await img.ToStreamAsync();
-            var captcha = await Response()
-                                .File(stream, "timely.png")
-                                .SendAsync();
-            try
-            {
-                var userInput = await GetUserInputAsync(ctx.User.Id, ctx.Channel.Id);
-                if (userInput?.ToLowerInvariant() != password?.ToLowerInvariant())
-                {
-                    return;
-                }
+            var password = await _captchaService.GetUserCaptcha(ctx.User.Id);
 
-                await ClearUserTimelyPassword(ctx.User.Id);
-            }
-            finally
+            if (password is not null)
             {
-                _ = captcha.DeleteAsync();
+                var img = GetPasswordImage(password);
+                await using var stream = await img.ToStreamAsync();
+                var toSend = Response()
+                    .File(stream, "timely.png");
+
+#if GLOBAL_NADEKO
+                if (_rng.Next(0, 5) == 0)
+                    toSend = toSend
+                        .Confirm("[Sub on Patreon](https://patreon.com/nadekobot) to remove captcha.")
+#endif
+
+                var captchaMessage = await toSend.SendAsync();
+                try
+                {
+                    var userInput = await GetUserInputAsync(ctx.User.Id, ctx.Channel.Id);
+                    if (userInput?.ToLowerInvariant() != password?.ToLowerInvariant())
+                    {
+                        return;
+                    }
+
+                    await _captchaService.ClearUserCaptcha(ctx.User.Id);
+                }
+                finally
+                {
+                    _ = captchaMessage.DeleteAsync();
+                }
             }
         }
 
         await ClaimTimely();
     }
-
-    private static TypedKey<string> TimelyPasswordKey(ulong userId)
-        => new($"timely_password:{userId}");
-
-    private async Task<string> GetUserTimelyPassword(ulong userId)
-    {
-        var pw = await _cache.GetOrAddAsync(TimelyPasswordKey(userId),
-            () =>
-            {
-                var password = _service.GeneratePassword();
-                return Task.FromResult(password);
-            });
-
-        return pw;
-    }
-
-    private ValueTask<bool> ClearUserTimelyPassword(ulong userId)
-        => _cache.RemoveAsync(TimelyPasswordKey(userId));
 
     private Image<Rgba32> GetPasswordImage(string password)
     {

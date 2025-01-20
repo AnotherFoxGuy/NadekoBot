@@ -2,6 +2,24 @@
 
 Mostly based on [keepachangelog](https://keepachangelog.com/en/1.0.0/) except date format. a-c-f-r-o
 
+## [5.3.6] - 20.01.2025
+
+## Added
+
+- Added player skill stat when fishing
+  - Starts at 0, goes up to 100
+  - Every time you fish you have a chance to get an extra skill point
+  - Higher skill gives you more chance to catch fish (and therefore less chance to catch trash)
+
+## Changed
+
+- Patrons no longer have `.timely` and `.fish` captcha on the public bot
+
+## Fixed
+
+- Fixed fishing spots again (Your channels will once again change a spot, last time hopefully)
+  - There was a mistake in spot calculation for each channel
+
 ## [5.3.5] - 17.01.2025
 
 ## Fixed
