@@ -13,7 +13,7 @@ public static class CommandNameLoadHelper
 
     public static Dictionary<string, string[]> LoadAliases(string aliasesFilePath = "strings/names.yml")
     {
-        var loc = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var loc = Path.GetDirectoryName(AppContext.BaseDirectory)!;
         var text = File.ReadAllText(Path.Combine(loc, aliasesFilePath));
         var raw = _deserializer.Deserialize<Dictionary<string, string[]>>(text);
         return new Dictionary<string, string[]>(raw, StringComparer.InvariantCultureIgnoreCase);

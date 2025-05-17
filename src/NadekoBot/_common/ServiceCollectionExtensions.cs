@@ -18,7 +18,7 @@ public static class ServiceCollectionExtensions
 
     public static IContainer AddBotStringsServices(this IContainer svcs, BotCacheImplemenation botCache)
     {
-        var curLoc = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var curLoc = Path.GetDirectoryName(AppContext.BaseDirectory)!;
         var res = Path.Combine(curLoc, _responsesPath);
         var cmd = Path.Combine(curLoc, _commandsPath);
 

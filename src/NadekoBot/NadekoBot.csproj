@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
@@ -17,12 +17,18 @@
         <DebugType>embedded</DebugType>
 
     </PropertyGroup>
+	
+    <PropertyGroup>
+      <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+      <PublishSingleFile>true</PublishSingleFile>
+    </PropertyGroup>
 
     <ItemGroup>
         <InternalsVisibleTo Include="NadekoBot.Tests" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="System.Data.SQLite" Version="1.0.116" />
         <PackageReference Include="AngleSharp" Version="1.2.0">
             <PrivateAssets>all</PrivateAssets>
             <Publish>True</Publish>
